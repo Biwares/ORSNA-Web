@@ -1,0 +1,74 @@
+<div id="content-wrapper">
+
+  <div class="container-fluid">
+    <h3 class="font-weight-bold OrsnaMainTxt">Auditoría</h3>
+    <hr>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="alert alert-primary" role="alert">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="FilterMensaje">Mensaje</label>
+              <input type="text" class="form-control form-control-sm" id="FilterMensaje" nombre="FilterMensaje" [(ngModel)]="FilterMensaje">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterDetalle">Detalle</label>
+              <input type="text" class="form-control form-control-sm" id="FilterDetalle" nombre="FilterDetalle" [(ngModel)]="FilterDetalle">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterFechaDesde">Fecha Desde</label>
+              <input type="date" class="form-control form-control-sm" id="FilterFechaDesde" name="FilterFechaDesde" [(ngModel)]="FilterFechaDesde">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterFechaHasta">Fecha Hasta</label>
+              <input type="date" class="form-control form-control-sm" id="FilterFechaHasta" name="FilterFechaHasta" [(ngModel)]="FilterFechaHasta">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterUserName">User</label>
+              <input type="text" class="form-control form-control-sm" id="FilterUserName" nombre="FilterUserName" [(ngModel)]="FilterUserName">
+            </div>
+            <div class="form-group col-md-4 offset-lg-4 text-center">
+              <a class="btn btn-primary mt-4" href="javascript:;" role="button" style="color: #ffffff;margin-right:10px" (click)="GetAll('desc','Id',1)"><i class="fa fa-search"></i> Buscar</a>
+              <a class="btn btn-primary mt-4" href="javascript:;" role="button" style="margin-right:10px" (click)="refresh()"><i class="fas fa-eraser"></i> Limpiar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="table-responsive">
+          <table class="table text-center table-hover table-striped">
+            <thead class="text-white OrsnaMainC">
+              <tr>
+                <th scope="col" class="col-md-1">User&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','UserName',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','UserName',1)">&nbsp;</i></th>
+                <th scope="col" class="col-md-1">Ubicación&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Ubicacion',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Ubicacion',1)">&nbsp;</i></th>
+                <th scope="col" class="col-md-1">Fecha&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Fecha',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Fecha',1)">&nbsp;</i></th>
+                <th scope="col" class="col-md-1">Mensaje&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Mensaje',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Mensaje',1)">&nbsp;</i></th>
+                <th scope="col" class="col-md-8">Detalle&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Detalle',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Detalle',1)">&nbsp;</i></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr [style.display]="audits?.length==0 ? '' : 'none'">
+                <td colspan="4">No se encontraron registros para la búsqueda.</td>
+              </tr>
+              <tr *ngFor="let aud of audits">
+                <td>{{aud.userName}}</td>
+                <td>{{aud.ubicacion}}</td>
+                <td>{{aud.fecha | date: "dd-MM-y"}}</td>
+                <td>{{aud.mensaje}}</td>
+                <td style="min-width: 7rem; max-width: 100px;"><ngx-json-viewer [json]= aud.detalleJson [expanded]="false"></ngx-json-viewer></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="CountFilterElements" [(page)]="page" [maxSize]="5" [pageSize]="15" [rotate]="true" [boundaryLinks]="true" (pageChange)="GetAll('','',$event)"></ngb-pagination>
+  <label class="d-flex justify-content-center">Número de registros encontrados: {{CountFilterElements}} de {{CountElements}}</label>
+</div>
+
+
+<div class="modalLoading" *ngIf="loading==true"></div>

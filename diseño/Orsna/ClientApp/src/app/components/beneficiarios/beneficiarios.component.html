@@ -1,0 +1,317 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">{{nombreModulo}} Beneficarios</h3>
+  <hr>
+
+  <div class="container-fluid">
+    <form [formGroup]="newProveedor" (ngSubmit)="SaveProveedor(newProveedor.value)">
+      <div class="row">
+        <div class="col-sm-12 col-lg-12">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="RazonSocial">Razón Social(*)</label>
+              <input class="form-control form-control-sm" id="RazonSocial" name="RazonSocial" formControlName="RazonSocial">
+              <div *ngFor="let validation of validation_messages.RazonSocial">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('RazonSocial').hasError(validation.type) && (newProveedor.get('RazonSocial').dirty || newProveedor.get('RazonSocial').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Descripcion">Descripción</label>
+              <input class="form-control form-control-sm" id="Descripcion" name="Descripcion" formControlName="Descripcion">
+              <div *ngFor="let validation of validation_messages.Descripcion">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('Descripcion').hasError(validation.type) && (newProveedor.get('Descripcion').dirty || newProveedor.get('Descripcion').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Cuit">Identificación Tributaria(*)</label>
+              <input class="form-control form-control-sm" id="Cuit" name="Cuit" formControlName="Cuit">
+              <div *ngFor="let validation of validation_messages.Cuit">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('Cuit').hasError(validation.type) && (newProveedor.get('Cuit').dirty || newProveedor.get('Cuit').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FechaAlta">Fecha de Alta</label>
+              <input type="date" class="form-control form-control-sm" id="FechaAlta" name="FechaAlta" formControlName="FechaAlta">
+              <div *ngFor="let validation of validation_messages.FechaAlta">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('FechaAlta').hasError(validation.type) && (newProveedor.get('FechaAlta').dirty || newProveedor.get('FechaAlta').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="NacionalExtranjero">Nacional / Extranjero(*) </label>
+              <select class="form-control form-control-sm" id="NacionalExtranjero" name="NacionalExtranjero" (change)="NacionalExtranjeroChange()" formControlName="NacionalExtranjero">
+                <option value="Nacional">Nacional</option>
+                <option value="Extranjero">Extranjero</option>
+              </select>
+              <div *ngFor="let validation of validation_messages.NacionalExtranjero">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('NacionalExtranjero').hasError(validation.type) && (newProveedor.get('NacionalExtranjero').dirty || newProveedor.get('NacionalExtranjero').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Email">Mail</label>
+              <input type="email" class="form-control form-control-sm" id="Email" name="Email" formControlName="Email">
+              <div *ngFor="let validation of validation_messages.Email">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('Email').hasError(validation.type) && (newProveedor.get('Email').dirty || newProveedor.get('Email').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="Telefono">Teléfono</label>
+              <input type="text" class="form-control form-control-sm" id="Telefono" name="Telefono" formControlName="Telefono">
+              <div *ngFor="let validation of validation_messages.Telefono">
+                <div class="alert alert-info" role="alert" *ngIf="newProveedor.get('Telefono').hasError(validation.type) && (newProveedor.get('Telefono').dirty || newProveedor.get('Telefono').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------------------------------------------------------->
+          <h6>Información Bancaria</h6> <hr>
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <a href="javascript:;" class="float-right" (click)="OpenModalCuentaBancariaBeneficiario('0',ModalCuentaBancariaBeneficiario, 'Nueva')">
+                <i class="fa fa-plus"></i>
+                Nueva Cuenta Bancaria
+              </a>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-bordered text-center table-hover">
+                <thead>
+                  <tr>
+                    <th>Banco</th>
+                    <th>Sucursal</th>
+                    <th>Cuenta</th>
+                    <th>CBU</th>
+                    <th>Titular</th>
+                    <th>Fecha Vigencia</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="7">
+                      <div class="alert alert-info" role="alert" *ngIf="listBanks.length==0">
+                        <a data-toggle="modal" href="javascript:;" (click)="OpenModalCuentaBancariaBeneficiario('0',ModalCuentaBancariaBeneficiario, 'Nueva')">
+                          <i class="fa fa-plus"></i> Al menos una cuenta es requerida
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="table-light" *ngFor="let b of listBanks">
+                    <td>{{b.NombreBanco}}{{b.nombreBanco}}</td>
+                    <td>{{b.Sucursal}}{{b.sucursal}}</td>
+                    <td>{{b.NroCuenta}}{{b.nroCuenta}}</td>
+                    <td>{{b.CBU}}{{b.cbu}}</td>
+                    <td>{{b.Titular}}{{b.titular}}</td>
+                    <td>{{b.FechaVigencia | date :  "dd-MM-y"}}{{b.fechaVigencia | date :  "dd-MM-y"}}</td>
+                    <td>
+                      <a href="javascript:;" (click)="OpenModalCuentaBancariaBeneficiario(b.NroCuenta, ModalCuentaBancariaBeneficiario, 'Editar')"><i class="fa fa-edit" style="margin-left: 5px"></i></a>
+                      <a href="javascript:;" (click)="DeleteBancoBeneficiario(b.NroCuenta)"><i class="fa fa-trash" style="margin-left: 5px"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!---------------------------------------------------------------------------------------------------------------------------->
+          <form class="user-form" [formGroup]="formFiles">
+            <div class="row">
+              <div class="col-sm-12 col-lg-4 p-3">
+                <label for="">Archivos Adjuntos</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile" name="customFile" #uploader (change)="fileChange(uploader.files)">
+                  <label class="custom-file-label" for="customFile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                      <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                    </svg>
+                    <span>{{nameFile}}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+          <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+          <div *ngIf="idBeneficiario!='0'">
+            <div class="row">
+              <div class="col-sm-12 col-lg-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered text-center table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nombre Archivo</th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let adj of listAdjuntos" class="table-light">
+                        <td>{{adj.nombreArchivo}}{{adj.NombreArchivo}}</td>
+                        <td *ngIf="adj.Id!=undefined"><a href="javascript:;" (click)="getFileById(adj.Hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                        <td *ngIf="adj.id!=undefined"><a href="javascript:;" (click)="getFileById(adj.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                        <td *ngIf="adj.Id!=undefined"><a href="javascript:;" (click)="deleteAdjunto(adj.Id)"><i class="fa fa-times-circle text-danger fa-2x"></i></a></td>
+                        <td *ngIf="adj.id!=undefined"><a href="javascript:;" (click)="deleteAdjunto(adj.id)"><i class="fa fa-times-circle text-danger fa-2x"></i></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---------------------------------------------------------------------------------------------------------------------->
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-light" style="background-color: #e9ecef;">
+                <table style="width:100%">
+                  <tbody>
+                    <tr>
+                      <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newProveedor.valid || listBanks.length==0"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--MODAL CUENTA BANCARIA PROVEEDOR-->
+<ng-template #ModalCuentaBancariaBeneficiario let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{nombreModal}} Cuenta Bancaria</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newBancoBeneficiario" (ngSubmit)="SaveBancoBeneficiario(newBancoBeneficiario.value)">
+      <div class="form-row">
+        <div *ngIf="esNacional=='Nacional'" class="form-group col-md-3">
+          <label for="Tipocuenta">Tipo Cuenta (*)</label>
+          <select class="form-control form-control-sm" id="TipoCuenta" name="TipoCuenta" formControlName="TipoCuenta">
+            <option value="">Seleccione</option>
+            <option value="Corriente">Corriente</option>
+            <option value="Ahorro">Ahorro</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <div *ngFor="let validation of validation_messages.TipoCuenta">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('TipoCuenta').hasError(validation.type) && (newBancoBeneficiario.get('TipoCuenta').dirty || newBancoBeneficiario.get('TipoCuenta').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="FechaVigencia">Fecha Vigencia(*)</label>
+          <input type="date" class="form-control form-control-sm" id="FechaVigencia" name="FechaVigencia" formControlName="FechaVigencia">
+          <div *ngFor="let validation of validation_messages.FechaVigencia">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('FechaVigencia').hasError(validation.type) && (newBancoBeneficiario.get('FechaVigencia').dirty || newBancoBeneficiario.get('FechaVigencia').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="NombreBanco">Nombre Banco(*)</label>
+          <input type="text" class="form-control form-control-sm" id="NombreBanco" name="NombreBanco" formControlName="NombreBanco">
+          <div *ngFor="let validation of validation_messages.NombreBanco">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('NombreBanco').hasError(validation.type) && (newBancoBeneficiario.get('NombreBanco').dirty || newBancoBeneficiario.get('NombreBanco').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="NroCuenta">Nro Cuenta(*)</label>
+          <input type="text" class="form-control form-control-sm" id="NroCuenta" name="NroCuenta" formControlName="NroCuenta">
+          <div *ngFor="let validation of validation_messages.NroCuenta">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('NroCuenta').hasError(validation.type) && (newBancoBeneficiario.get('NroCuenta').dirty || newBancoBeneficiario.get('NroCuenta').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="esNacional=='Nacional'" class="form-group col-md-3">
+          <label for="Sucursal">Sucursal (*)</label>
+          <input type="text" class="form-control form-control-sm" id="Sucursal" name="Sucursal" formControlName="Sucursal">
+          <div *ngFor="let validation of validation_messages.Sucursal">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('Sucursal').hasError(validation.type) && (newBancoBeneficiario.get('Sucursal').dirty || newBancoBeneficiario.get('Sucursal').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3" *ngIf="esNacional=='Nacional'">
+          <label for="CBU">CBU (*)</label>
+          <input type="text" class="form-control form-control-sm" id="CBU" name="CBU" formControlName="CBU">
+          <div *ngFor="let validation of validation_messages.CBU">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('CBU').hasError(validation.type) && (newBancoBeneficiario.get('CBU').dirty || newBancoBeneficiario.get('CBU').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3" *ngIf="esNacional=='Nacional'">
+          <label for="Titular">Titular (*)</label>
+          <input type="text" class="form-control form-control-sm" id="Titular" name="Titular" formControlName="Titular">
+          <div *ngFor="let validation of validation_messages.Titular">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('Titular').hasError(validation.type) && (newBancoBeneficiario.get('Titular').dirty || newBancoBeneficiario.get('Titular').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3" *ngIf="esNacional=='Extranjero'">
+          <label for="Direccion">Dirección</label>
+          <input type="text" class="form-control form-control-sm" id="Direccion" name="Direccion" formControlName="Direccion">
+          <div *ngFor="let validation of validation_messages.Direccion">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('Direccion').hasError(validation.type) && (newBancoBeneficiario.get('Direccion').dirty || newBancoBeneficiario.get('Direccion').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3" *ngIf="esNacional=='Extranjero'">
+          <label for="BicSwift">Bic/Swift (*)</label>
+          <input type="text" class="form-control form-control-sm" id="BicSwift" name="BicSwift" formControlName="BicSwift">
+          <div *ngFor="let validation of validation_messages.BicSwift">
+            <div class="alert alert-info" role="alert" *ngIf="newBancoBeneficiario.get('BicSwift').hasError(validation.type) && (newBancoBeneficiario.get('BicSwift').dirty || newBancoBeneficiario.get('BicSwift').touched)">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal" [disabled]="!newBancoBeneficiario.valid">Aceptar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->
+<!--MODAL ELIMINAR cuenta bancaria proveedor-->
+<ng-template #ModalDeleteCuentaBancariaProveedor let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>Realmente desea eliminar la cuenta bancaria: {{cbuToDelete}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="DeleteBancoProveedor()">Ok</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->
+
+<div class="modalLoading" *ngIf="loading==true"></div>

@@ -1,0 +1,49 @@
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<style>
+  body {
+    background-color: #0094d4 !important;
+  }
+</style>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="p-5 mt-4 text-center ">
+        <img src="{{url}}/api/File/ImagenLogo" style="max-height: 140px; max-width: 450px;" alt="">
+      </div>
+      <div class="container">
+        <div class="card card-login mx-auto mt-2">
+          <div class="card-header">Inicio</div>
+          <div class="card-body">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="text" formControlName="Email" class="form-control" placeholder="Email" required [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+                <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                  <div *ngIf="f.Email.errors.required">El campo email es obligatorio</div>
+                </div>
+
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">Contraseña</label>
+                <input type="password" formControlName="password" placeholder="Contraseña" required class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">El campo password es obligatorio</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-block" [disabled]="loading" value="Enviar">
+              </div>
+              <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modalLoading" *ngIf="loading==true"></div>

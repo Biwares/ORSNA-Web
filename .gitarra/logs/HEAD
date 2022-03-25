@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 5a92f9c5c3ef9577b9b8b1a760c369365881f6dc ARX0001096 <mauro.bochons@ext.prosegur.com> 1643401017 -0300	clone: from https://github.com/dmartinoguzman/ORSNA.git
+5a92f9c5c3ef9577b9b8b1a760c369365881f6dc c50b15d2aa1b56833a4ccdb5f4aeecb7c5f261b6 ARX0001096 <mauro.bochons@ext.prosegur.com> 1643401040 -0300	checkout: moving from main to master
+c50b15d2aa1b56833a4ccdb5f4aeecb7c5f261b6 cfc2e2cb77c1dfb725b2ab5ca44cd634ed738360 ARX0001096 <mauro.bochons@ext.prosegur.com> 1643413820 -0300	pull: Fast-forward
+cfc2e2cb77c1dfb725b2ab5ca44cd634ed738360 cfc2e2cb77c1dfb725b2ab5ca44cd634ed738360 ARX0001096 <mauro.bochons@ext.prosegur.com> 1648213838 -0300	checkout: moving from master to Cesiones
+cfc2e2cb77c1dfb725b2ab5ca44cd634ed738360 cfc2e2cb77c1dfb725b2ab5ca44cd634ed738360 ARX0001096 <mauro.bochons@ext.prosegur.com> 1648214179 -0300	checkout: moving from Cesiones to Cesiones
+cfc2e2cb77c1dfb725b2ab5ca44cd634ed738360 608fcccefe66b819d77def90c00c1fdbc094b2f8 ARX0001096 <mauro.bochons@ext.prosegur.com> 1648214281 -0300	commit: 'Cesiones'

@@ -1,0 +1,385 @@
+<div id="content-wrapper">
+
+  <div class="container-fluid">
+    <h3 class="font-weight-bold OrsnaMainTxt">Consulta de Libranzas de Pago</h3>
+    <hr>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="alert alert-primary" role="alert">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="SelectAero" class="col-lg-2 control-label" style="margin-left: -14px;">Aeropuertos</label>
+              <ng-multiselect-dropdown [placeholder]="'Seleccione...'"
+                                       [data]="Aeropuertos"
+                                       [(ngModel)]="AeropuertosSelect"
+                                       [settings]="dropdownSettings"
+                                       (onSelect)="onItemSelectAero($event)"
+                                       (onDeSelect)="onItemDeSelectAero($event)"
+                                       name="SelectAero" id="SelectAero">
+              </ng-multiselect-dropdown>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterEstado">Estado</label>
+              <select class="form-control form-control-sm" name="FilterEstado" id="FilterEstado" [(ngModel)]="FilterEstado">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let e of Estados" value="{{e.id}}">{{e.nombre}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="SelectBen" class="control-label">Beneficiario / Contratista</label>
+              <ng-multiselect-dropdown [placeholder]="'Seleccione...'"
+                                       [data]="Beneficiarios"
+                                       [(ngModel)]="BeneficiariosSelect"
+                                       [settings]="dropdownSettingsBeneficiario"
+                                       (onSelect)="onItemSelectBen($event)"
+                                       (onDeSelect)="onItemDeSelectBen($event)"
+                                       name="SelectBen" id="SelectBen">
+              </ng-multiselect-dropdown>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterProyecto">Proyecto</label>
+              <select class="form-control form-control-sm" name="FilterProyecto" id="FilterProyecto" [(ngModel)]="FilterProyecto">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let p of Proyectos" value="{{p.id}}">{{p.nombre}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterTipoLibranza">Tipo de Libranza</label>
+              <select class="form-control form-control-sm" name="FilterTipoLibranza" id="FilterTipoLibranza" [(ngModel)]="FilterTipoLibranza">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let t of LibranzaTipos" value="{{t.id}}">{{t.nombre}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterFactura">Factura</label>
+              <input type="text" class="form-control form-control-sm" id="FilterFactura" nombre="FilterFactura" [(ngModel)]="FilterFactura">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterDesde">Fecha Desde</label>
+              <input type="date" class="form-control form-control-sm" id="FilterDesde" name="FilterDesde" [(ngModel)]="FilterDesde">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterHasta">Fecha Hasta</label>
+              <input type="date" class="form-control form-control-sm" id="FilterHasta" name="FilterHasta" [(ngModel)]="FilterHasta">
+            </div>
+            <div class="form-group col-md-4 offset-lg-4 text-center">
+              <a class="btn btn-primary mt-4" href="javascript:;" role="button" style="margin-right:20px" (click)="GetAll('desc','Id',1)"><i class="fas fa-search"></i> Buscar</a>
+              <a class="btn btn-primary mt-4" href="javascript:;" role="button" style="margin-left:20px" (click)="GetXLSFilter()"><i class="fas fa-file-excel"></i>&nbsp;Exportar a Excel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <a class="float-right" href="javascript:;" (click)="NewLibranza()"><i class="fas fa-plus"></i> Nueva Libranza de Pago</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="table-responsive">
+          <table class="table text-center table-hover table-striped">
+            <thead class="text-white OrsnaMainC">
+              <tr>
+                <th scope="col">Nº Libranza&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','NroLibranza',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','NroLibranza',1)">&nbsp;</i></th>
+                <th scope="col">Fecha&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Fecha',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Fecha',1)">&nbsp;</i></th>
+                <th scope="col">Nro de cuenta Fiduciaria</th>
+                <th scope="col">Nº EXP</th>
+                <th scope="col">Obra</th>
+                <th scope="col">Beneficiario / Contratista</th>
+                <th scope="col">Factura</th>
+                <th scope="col">Monto Neto</th>
+                <th scope="col">Descripción</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let l of Libranzas; index as i">
+                <td>{{l.nroLibranza}}</td>
+                <td>{{l.fecha  | date :  "dd-MM-y"}}</td>
+                <td>{{l.proyecto.cuenta.nroCuenta}}</td>
+                <td>{{l.proyecto.nroContratacion}}</td>
+                <td>{{l.proyecto.nroObra}}</td>
+                <td>
+                  <p *ngFor="let be of misBen[i]" style="margin:0px">
+                    <span class="badge badge-secondary">
+                      {{be.razonSocial}}<br />
+                    </span>
+                  </p>
+                </td>
+                <td>
+                  <p *ngFor="let f of misFac[i]" style="margin:0px">
+                    <span class="badge badge-secondary">
+                      {{f.nro}}<br />
+                    </span>
+                  </p>
+                </td>
+                <td>{{l.montoNeto  | currency}}</td>
+                <td>{{l.proyecto.descripcion}}</td>
+                <td><a data-target="#ModalDetalleLibranza" href="javascript:;" (click)="GetLibranzaById(l.id)" class="fas fa-search OrsnaMainTxt" style="margin-left: 5px" data-toggle="modal"></a></td>
+                <td><a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-exchange-alt" data-toggle="tooltip" data-placement="top" title="Cambiar Estado"></i></a></td>
+                <td><a href="javascript:;"><i class="fas fa-file-pdf" data-toggle="tooltip" data-placement="top" (click)="CreatePdf(l.id)" title="Exportar PDF"></i></a></td>
+                <td><a href="javascript:;" (click)="EditLibranza(l.id)"><i class="fas fa-edit"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="CountPages" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="GetAll('','',$event)"></ngb-pagination>
+</div>
+
+<!-- Modal cambiar estado---------------------------------------------------------------------------------------------------------------->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content modal-contentWF">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cambiar Estado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6 offset-lg-3">
+              <label for="exampleFormControlSelect1">Estado</label>
+              <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+                <option>En Elaboración</option>
+                <option>Emitida (pendiente de firmas)</option>
+                <option>Pendiente de Firma USG/DIR</option>
+                <option>En el Banco</option>
+                <option>En el Ministerio</option>
+                <option>Rechazada por el ministerio</option>
+                <option>Pagada</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6 offset-lg-3">
+              <label for="">Motivo del cambio de Estado</label>
+              <textarea class="form-control" rows="3" id="comment"></textarea>
+            </div>
+          </div>
+        </form>
+
+        <div class="row">
+          <div class="col-sm-12  text-center mb-3">
+            <button type="button" class="btn btn-primary center" data-dismiss="modal">Aceptar</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table text-center table-hover table-striped">
+                <thead class="text-white OrsnaMainC">
+                  <tr>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de Cambio</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Motivo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>En elaboración</td>
+                    <td>20/07/2018</td>
+                    <td>Carlos Fernández</td>
+                    <td>Lorem Ipsum</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row bs-wizard center" style="border-bottom:0; margin-right: 20px;">
+
+          <div class="col-sm-2 bs-wizard-step complete">
+            <div class="text-center bs-wizard-stepnum">En Elaboración</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+
+          <div class="col-sm-1 bs-wizard-step complete">
+            <!-- complete -->
+            <div class="text-center bs-wizard-stepnum">Emitida (GAP)</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+
+          <div class="col-sm-2 bs-wizard-step active">
+            <!-- complete -->
+            <div class="text-center bs-wizard-stepnum">Pendiente por Firma (USG / DIR)</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+
+          <div class="col-sm-1 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">En el Banco </div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+          <div class="col-sm-2 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">En el Ministerio</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+          <div class="col-sm-2 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">Rechazada por el ministerio</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+          <div class="col-sm-1 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">Pagada</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+          <div class="col-sm-1 bs-wizard-step disabled">
+            <!-- active -->
+            <div class="text-center bs-wizard-stepnum">Anulada</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <a href="#" class="bs-wizard-dot"></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade " id="ModalDetalleLibranza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document" style="min-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle de libranza</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <table class="table table-striped">
+              <tbody *ngIf="DetalleLibranza!=null">
+                <tr>
+                  <td style="border-top:0"><b>ID Libranza: </b><span>{{DetalleLibranza.id}}</span></td>
+                  <td style="border-top:0"><b>Nro Libranza: </b><span>{{DetalleLibranza.nroLibranza}}</span></td>
+                  <td style="border-top:0"><b>Fecha: </b><span>{{DetalleLibranza.fecha  | date :  "dd-MM-y"}}</span></td>
+                  <td style="border-top:0"><b>Nro. de Cuenta: </b><span>{{DetalleLibranza.proyecto.cuenta.nroCuenta}}</span></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Nro. de Expediente de Pago: </b><span>{{DetalleLibranza.proyecto.nroPago}}</span></td>
+                  <td style="border-top:0"><b>Código de Obra / Ubicación Geográfica: </b><span>{{DetalleLibranza.proyecto.codObra}}</span></td>
+                  <td style="border-top:0"><b>Descripción: </b><span>{{DetalleLibranza.proyecto.descripcion}}</span></td>
+                  <td style="border-top:0"><b>Monto Neto: </b><span>{{DetalleLibranza.montoNeto | currency}}</span></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Estado: </b><span *ngIf="DetalleLibranza.libranzasEstado!=null">{{DetalleLibranza.libranzasEstado.nombre}}</span></td>
+                  <td style="border-top:0"><b>Fecha estado: </b><span>{{DetalleLibranza.fecha  | date :  "dd-MM-y"}}</span></td>
+                  <td style="border-top:0"><b>Fecha de Pago: </b><span></span></td>
+                  <td style="border-top:0"><b>Retenciones: </b><span></span></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Extracto Bancario: </b><span></span></td>
+                  <td style="border-top:0"><b>Observaciones: </b><span></span></td>
+                  <td style="border-top:0"><b>Monto Bruto: </b><span>{{DetalleLibranza.montoBruto | currency}}</span></td>
+                  <td style="border-top:0"><b></b><span></span></td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped">
+              <tbody *ngIf="DetalleLibranza!=null">
+                <tr>
+                  <td colspan="4">
+                    <b>Beneficiarios</b>
+                  </td>
+                </tr>
+                <tr *ngFor="let f of DetalleLibranza.beneficiario">
+                  <td style="border-top:0">
+                    <b>Razón social: </b>
+                    <span>
+                      {{f.razonSocial}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>Identificación Tributaria: </b>
+                    <span>
+                      {{f.cuit}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>Descripción: </b>
+                    <span>
+                      {{f.descripcion}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>Nro de cuenta Fiduciaria: </b>
+                    <span>
+                      {{f.bancos[0].nroCuenta}}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped">
+              <tbody *ngIf="DetalleLibranza!=null">
+                <tr>
+                  <td colspan="5">
+                    <b>Documentos de pago</b>
+                  </td>
+                </tr>
+                <tr *ngFor="let f of DetalleLibranza.factura">
+                  <td style="border-top:0">
+                    <b>Número: </b>
+                    <span>
+                      {{f.nro}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>Monto Neto: </b>
+                    <span>
+                      {{f.monto | currency}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>IVA: </b>
+                    <span>
+                      {{f.iva | currency}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>IBB: </b>
+                    <span>
+                      {{f.ibb | currency}}
+                    </span>
+                  </td>
+                  <td style="border-top:0">
+                    <b>Tipo de Pago: </b>
+                    <span>
+                      {{f.tipo}}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modalLoading" *ngIf="loading==true"></div>

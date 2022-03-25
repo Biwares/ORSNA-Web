@@ -1,0 +1,320 @@
+<div id="content-wrapper">
+
+  <div class="container-fluid">
+    <h3 class="font-weight-bold OrsnaMainTxt">Consulta Proyectos</h3>
+    <hr>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="alert alert-primary" role="alert">
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="SelectAero">Aeropuerto</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccionar'"
+                                         [data]="Aeropuertos"
+                                         [(ngModel)]="AeropuertosSelect"
+                                         [settings]="dropdownSettings"
+                                         (onSelect)="onItemSelectAero($event)"
+                                         (onDeSelect)="onItemDeSelectAero($event)"
+                                         name="SelectAero" id="SelectAero">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="FilterId">ID del Proyecto</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccionar'"
+                                         [data]="ProyectosId"
+                                         [(ngModel)]="ProyectosSelect"
+                                         [settings]="dropdownSettings"
+                                         (onSelect)="onItemSelectProyectosId($event)"
+                                         (onDeSelect)="onItemDeSelectProyectosId($event)"
+                                         name="SelectProyectos" id="SelectProyectos">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="SelectArea">Área</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccionar'"
+                                         [data]="Areas"
+                                         [(ngModel)]="AreasSelect"
+                                         [settings]="dropdownSettingsArea"
+                                         (onSelect)="onItemSelectArea($event)"
+                                         (onDeSelect)="onItemDeSelectArea($event)"
+                                         name="SelectArea" id="SelectArea">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="FilterEstado">Estado</label>
+                <select class="form-control form-control-sm" name="FilterEstado" id="FilterEstado" [(ngModel)]="FilterEstado">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let e of Estados" value="{{e.id}}">{{e.nombre}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="FilterFecha">Año de Creación</label>
+                <select class="form-control form-control-sm" name="FilterFecha" id="FilterFecha" [(ngModel)]="FilterFecha">
+                  <option value="0">Seleccionar</option>
+                  <option *ngFor="let e of Anios" value="{{e}}">{{e}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="FilterObra">Código de obra/Ubicación geográfica</label>
+                <input name="FilterObra" id="FilterId" [(ngModel)]="FilterObra" type="text" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="SelectArea">Cuenta Fiduciaria</label>
+                <ng-multiselect-dropdown [placeholder]="'Seleccionar'"
+                                         [data]="Cuentas"
+                                         [(ngModel)]="CuentasSelect"
+                                         [settings]="dropdownSettingsCuentas"
+                                         (onSelect)="onItemSelectCuentas($event)"
+                                         (onDeSelect)="onItemDeSelectCuentas($event)"
+                                         name="SelectCuentas" id="SelectCuentas">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="FilterDestino">Destino</label>
+                <select class="form-control form-control-sm" name="FilterDestino" id="FilterDestino" [(ngModel)]="FilterDestino">
+                  <option value="0">Seleccionar</option>
+                  <option *ngFor="let e of Destinos" value="{{e.id}}">{{e.nombre}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-md-5 offset-lg-3 text-center">
+              <div class="form-group col-md-12">
+                <a class="btn btn-primary mt-4 text-white" role="button" style="margin-right:10px" (click)="GetAll('desc','Id',1)"><i class="fa fa-search"></i> Buscar</a>
+                <a class="btn btn-primary mt-4" href="javascript:;" role="button" style="margin-right:10px" (click)="refresh()"><i class="fas fa-eraser"></i> Limpiar</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-sm-12">
+        <a [style.visibility]="puedeEditar ? 'visible' : 'hidden'" class="float-right" href="javascript:;" (click)="NewProyecto()"><i class="fa fa-plus"></i> Nuevo Proyecto</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="table-responsive">
+          <table class="table text-center table-hover table-striped">
+            <thead class="text-white OrsnaMainC">
+              <tr>
+                <th scope="col">Destino</th>
+                <th scope="col" style="width:10%">ID Proyecto&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','IdProyecto',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','IdProyecto',1)">&nbsp;</i></th>
+                <th scope="col">Cod. Obra</th>
+                <th scope="col" style="width:10%">Área&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Area',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Area',1)">&nbsp;</i></th>
+                <th scope="col" style="width:15%">Cuenta Fiduciaria&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Cuenta',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Cuenta',1)">&nbsp;</i></th>
+                <th scope="col" style="width:10%">Estado&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Estado',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Estado',1)">&nbsp;</i></th>
+                <th scope="col" style="width:15%">Fecha Creación&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Fecha',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Fecha',1)">&nbsp;</i></th>
+                <th scope="col" style="width:11%">Monto Total&nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','MontoTotal',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','MontoTotal',1)">&nbsp;</i></th>
+                <th scope="col" style="width:11%">Monto Disp.</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="proyectos?.length==0">
+                <td colspan="13">No se encontraron registros para la búsqueda.</td>
+              </tr>
+              <tr *ngFor="let p of proyectos; index as i">
+                <td *ngIf="p.destinosId==1">
+                  <p style="margin:0px">
+                    <span class="">
+                      SNA
+                    </span>
+                  </p>
+                </td>
+                <td *ngIf="p.destinosId==2 && 1 < p.aeropuertos.length">
+                  <ng-template #tipContent>
+                    <ng-container *ngFor="let aer of p.aeropuertos">
+                      {{aer.codIata}}<br />
+                    </ng-container>
+                  </ng-template>
+                  <button type="button" class="btn btn-outline-secondary" [ngbTooltip]="tipContent" tooltipClass="my-custom-class">
+                    Ver aeropuertos
+                  </button>
+                </td>
+                <td *ngIf="p.destinosId==2 && 1 >= p.aeropuertos.length">
+                  <p *ngFor="let aer of p.aeropuertos" style="margin:0px">
+                    <span class="">
+                      {{aer.codIata}}<br />
+                    </span>
+                  </p>
+                </td>
+
+                <td>{{p.idProyecto}}</td>
+                <td>{{p.codObra}}</td>
+                <td>{{p.area.codigo}}</td>
+                <td>{{p.cuenta.descripcion}}</td>
+                <td>{{p.estadoProyecto}}</td>
+                <td>{{p.fechaCreacion | date :  "dd-MM-y"}}</td>
+                <td>${{p.montoTotal  | number }}</td>
+                <td>${{p.montoDisponible  | number: '1.2-2' }}</td>
+
+                <td>
+                  <a title="Detalle" data-target="#ModalDetalleProyecto" href="javascript:;" (click)="GetProyectoById(p.id)" class="fas fa-search OrsnaMainTxt" style="margin-left: 5px" data-toggle="modal"></a>
+                </td>
+                <td>
+                  <a title="Editar" [style.visibility]="puedeEditar ? 'visible' : 'hidden'" href="javascript:;" (click)="EditProyecto(p.id)" class="fa fa-edit OrsnaMainTxt" style="margin-left: 5px"></a>
+                </td>
+                <td>
+                  <a title="Ver adjuntos" [style.visibility]="puedeEditar ? 'visible' : 'hidden'" (click)="getAdjuntosProyecto(p.id, p.nombre)" class="fa fa-folder-open OrsnaMainTxt" data-toggle="modal" href="javascript:;" data-target="#ModalMisAnexos"></a>
+                </td>
+                <td>
+                  <a title="Eliminar" [style.visibility]="puedeEliminar ? 'visible' : 'hidden'" href="javascript:;" (click)="OpenModalDeleteProyecto(p.id, p.nombre)" class="fa fa-trash OrsnaMainTxt" style="margin-left: 5px"></a>
+                </td>
+                <td>
+                  <a title="Crear libranza" [class.disabled]="!puedeEditarLibranzas" [style.visibility]="puedeEditar ? 'visible' : 'hidden'" href="javascript:;" (click)="NewLibranza(p.id)"><i class="fa fa-money"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="CountFilterElements" [(page)]="page" [maxSize]="5" [pageSize]="15" [rotate]="true" [boundaryLinks]="true" (pageChange)="GetAll('','',$event)"></ngb-pagination>
+  <label class="d-flex justify-content-center">Número de registros encontrados: {{CountFilterElements}} de {{CountElements}}</label>
+</div>
+<div class="modalLoading" *ngIf="loading==true"></div>
+
+<!--MODAL MIS ANEXOS-->
+<div class="modal fade " id="ModalMisAnexos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{NombreModalAnexos}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <h6 _ngcontent-c5="">Anexo II</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered text-center table-hover">
+                <thead>
+                  <tr>
+                    <th>Nombre Archivo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let adj of AnexosProyecto" class="table-light">
+                    <td *ngIf="adj.tipoAnexo == 2">{{adj.nombreArchivo}}{{adj.NombreArchivo}}</td>
+                    <td *ngIf="adj.tipoAnexo == 2"><a title="Descargar" href="javascript:;" (click)="getFileById(adj.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h6 _ngcontent-c5="">Anexo I</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered text-center table-hover">
+                <thead>
+                  <tr>
+                    <th>Nombre Archivo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let adj of AnexosProyecto" class="table-light">
+                    <td *ngIf="adj.tipoAnexo == 1">{{adj.nombreArchivo}}{{adj.NombreArchivo}}</td>
+                    <td *ngIf="adj.tipoAnexo == 1"><a title="Descargar" href="javascript:;" (click)="getFileById(adj.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h6 _ngcontent-c5="">Otros</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered text-center table-hover">
+                <thead>
+                  <tr>
+                    <th>Nombre Archivo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let adj of AnexosProyecto" class="table-light">
+                    <td *ngIf="adj.tipoAnexo == 3">{{adj.nombreArchivo}}{{adj.NombreArchivo}}</td>
+                    <td *ngIf="adj.tipoAnexo == 3"><a title="Descargar" href="javascript:;" (click)="getFileById(adj.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIN DEL MODAL-->
+<!-- Modal -->
+<div class="modal fade " id="ModalDetalleProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document" style="min-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle del Proyecto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <table class="table table-striped">
+              <tbody *ngIf="DetalleProyecto!=null">
+                <tr>
+                  <td style="border-top:0"><b>ID Proyecto: </b><span>{{DetalleProyecto.idProyecto}}</span></td>
+                  <td style="border-top:0"><b>Nombre del proyecto: </b><span> {{DetalleProyecto.nombre}}</span></td>
+                  <td style="border-top:0"><b>Cod Obra / Ubicación geográfica:</b><span> {{DetalleProyecto.codObra}}</span></td>
+                  <td style="border-top:0"><b>Descripción:</b><span> {{DetalleProyecto.descripcion}}</span></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Estado:</b><span> {{DetalleProyecto.estadoProyecto}}</span></td>
+                  <td style="border-top:0"><b>Área:</b><span> {{DetalleProyecto.area.nombre}}</span></td>
+                  <td style="border-top:0"><b>Cuenta Fiduciaria:</b><span> {{DetalleProyecto.cuenta.nombre}}</span></td>
+                  <td style="border-top:0"></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Destino:</b><span> {{DetalleProyecto.destinos.nombre}}</span></td>
+                  <td style="border-top:0" colspan="3"><b>Aeropuertos:</b><span *ngFor="let a of DetalleProyecto.aeropuertos"> {{a.nombre}}</span></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Nro. Expediente de Contratación:</b><span> {{DetalleProyecto.nroContratacion}}</span></td>
+                  <td style="border-top:0"><b>Nro. Expediente de Obra:</b><span> {{DetalleProyecto.nroObra}}</span></td>
+                  <td style="border-top:0"><b>Nro. Expediente de Pago:</b><span> {{DetalleProyecto.nroPago}}</span></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Objeto:</b><span> {{DetalleProyecto.objeto}}</span></td>
+                  <td><b>Monto Total:</b><span> {{DetalleProyecto.montoTotal | currency:"$"}}</span></td>
+                  <td><b>Monto Disponible:</b><span> {{DetalleProyecto.montoDisponible  | currency:"$"}}</span></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style="border-top:0"><b>Anexo I:</b><span *ngFor="let a of DetalleProyecto.adjuntos"><span *ngIf="a.tipoAnexo==1"> {{a.nombreArchivo}} </span></span></td>
+
+                  <td style="border-top:0"><b>Otros Anexos:</b><span *ngFor="let a of DetalleProyecto.adjuntos"><span *ngIf="a.tipoAnexo==3"> {{a.nombreArchivo}} </span></span></td>
+                  <td style="border-top:0"><b>Anexo II:</b><span *ngFor="let a of DetalleProyecto.adjuntos"><span *ngIf="a.tipoAnexo==2"> {{a.nombreArchivo}} </span></span></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

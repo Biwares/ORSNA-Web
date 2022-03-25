@@ -1,0 +1,434 @@
+<div id="content-wrapper">
+
+  <div class="container-fluid">
+
+    <!-- Breadcrumbs
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index.html">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">Ventas</li>
+    </ol>-->
+    <!-- Page Content -->
+    <h3 class="font-weight-bold OrsnaMainTxt">Libranzas de Pago</h3>
+    <hr>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-lg-12">
+          <form [formGroup]="newLibranza" (ngSubmit)="SaveLibranza(newLibranza.value)">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="IdProyecto">Proyecto (*)</label>
+                <select (change)="changeProyecto($event.target.value)" class="form-control form-control-sm" id="IdProyecto" name="IdProyecto" formControlName="IdProyecto">
+                  <option value="">Seleccione</option>
+                  <option *ngFor="let p of proyectos" value="{{p.id}}">{{p.nombre}}</option>
+                </select>
+                <div *ngFor="let validation of validation_messages.IdProyecto">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('IdProyecto').hasError(validation.type) && (newLibranza.get('IdProyecto').dirty || newLibranza.get('IdProyecto').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="NroLibranza">Número de Libranza (*)</label>
+                <input type="text" class="form-control form-control-sm" id="NroLibranza" disabled="disabled" name="NroLibranza" formControlName="NroLibranza">
+                <div *ngFor="let validation of validation_messages.NroLibranza">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('NroLibranza').hasError(validation.type) && (newLibranza.get('NroLibranza').dirty || newLibranza.get('NroLibranza').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="IdProvincia">Provincia (*)</label>
+                <select class="form-control form-control-sm" id="IdProvincia" name="IdProvincia" formControlName="IdProvincia">
+                  <option value="">Seleccione</option>
+                  <option *ngFor="let p of provincias" value="{{p.id}}">{{p.nombre}}</option>
+                </select>
+                <div *ngFor="let validation of validation_messages.IdProvincia">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('IdProvincia').hasError(validation.type) && (newLibranza.get('IdProvincia').dirty || newLibranza.get('IdProvincia').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row p-3" style="background-color: #2196f329">
+              <div class="col-sm-12">
+                <h6>Beneficiarios</h6><hr>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <a class="float-right" href="javascript:;" data-toggle="modal" data-target="#AgregarBeneficiario"><i class="fas fa-plus"></i> Agregar Beneficiario</a>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-8 offset-lg-2">
+                  <div class="table-responsive">
+                    <table class="table table-bordered text-center table-hover">
+                      <thead>
+                        <tr class="OrsnaMainC">
+                          <th class="text-white">Identificación Tributaria</th>
+                          <th class="text-white">Razón Social</th>
+                          <th class="text-white">Cuenta Bancaria</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-light" *ngFor="let mb of misBeneficiarios">
+                          <td>{{mb.cuit}}</td>
+                          <td>{{mb.razonSocial}}</td>
+                          <td>{{mb.bancos[0].nroCuenta}}</td>
+                          <td><a href="javascript:;" (click)="DeleteBeneficiario(mb)"><i class="fas fa-times-circle text-danger fa-2x"></i></a></td>
+                        </tr>
+                        <tr *ngIf="misBeneficiarios.length==0">
+                          <td colspan="4">
+                            <div class="alert alert-light " role="alert">
+                              <a data-toggle="modal" href="javascript:;" data-target="#AgregarBeneficiario"><i class="fa fa-plus"></i> al menos un beneficiario es requerido</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br />
+            <h6>Descuentos</h6><hr>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="MontoFondoReparo">Fondo de Reparo</label>
+                <input type="number" class="form-control form-control-sm" id="MontoFondoReparo" name="MontoFondoReparo" formControlName="MontoFondoReparo">
+                <div *ngFor="let validation of validation_messages.MontoFondoReparo">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('MontoFondoReparo').hasError(validation.type) && (newLibranza.get('MontoFondoReparo').dirty || newLibranza.get('MontoFondoReparo').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3" style=" padding-top: 35px;">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" (change)="registraSustitucion()" class="custom-control-input" id="Sustituido" name="Sustituido" formControlName="Sustituido">
+                  <label class="custom-control-label" for="Sustituido">Sustituido por Póliza de Caución</label>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="Multa">Multa</label>
+                <input type="number" class="form-control form-control-sm" id="Multa" name="Multa" formControlName="Multa">
+                <div *ngFor="let validation of validation_messages.Multa">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('Multa').hasError(validation.type) && (newLibranza.get('Multa').dirty || newLibranza.get('Multa').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="Mora">Mora</label>
+                <input type="number" class="form-control form-control-sm" id="Mora" name="Mora" formControlName="Mora">
+                <div *ngFor="let validation of validation_messages.Mora">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('Mora').hasError(validation.type) && (newLibranza.get('Mora').dirty || newLibranza.get('Mora').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <h6>Embargos</h6><hr>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="NroEmbargo">Número de embargo</label>
+                <input type="text" class="form-control form-control-sm" id="NroEmbargo" name="NroEmbargo" formControlName="NroEmbargo">
+                <div *ngFor="let validation of validation_messages.NroEmbargo">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('NroEmbargo').hasError(validation.type) && (newLibranza.get('NroEmbargo').dirty || newLibranza.get('NroEmbargo').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="ResponsableEmbargo">Responsable del embargo</label>
+                <input type="text" class="form-control form-control-sm" id="ResponsableEmbargo" name="ResponsableEmbargo" formControlName="ResponsableEmbargo">
+                <div *ngFor="let validation of validation_messages.ResponsableEmbargo">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('ResponsableEmbargo').hasError(validation.type) && (newLibranza.get('ResponsableEmbargo').dirty || newLibranza.get('ResponsableEmbargo').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="MontoEmbargo">Monto del embargo</label>
+                <input type="number" class="form-control form-control-sm" id="MontoEmbargo" name="MontoEmbargo" formControlName="MontoEmbargo">
+                <div *ngFor="let validation of validation_messages.MontoEmbargo">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('MontoEmbargo').hasError(validation.type) && (newLibranza.get('MontoEmbargo').dirty || newLibranza.get('MontoEmbargo').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="SaldoEmbargo">Saldo del embargo</label>
+                <input type="number" class="form-control form-control-sm" id="SaldoEmbargo" name="SaldoEmbargo" formControlName="SaldoEmbargo">
+                <div *ngFor="let validation of validation_messages.SaldoEmbargo">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('SaldoEmbargo').hasError(validation.type) && (newLibranza.get('SaldoEmbargo').dirty || newLibranza.get('SaldoEmbargo').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h6>Cesiones</h6><hr>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="RegistraCesion">Registra Cesión</label>
+                <select class="form-control form-control-sm" id="RegistraCesion" name="RegistraCesion" formControlName="RegistraCesion">
+                  <option value="true">Si</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="NroEscritura">Número Escritura</label>
+                <input type="text" class="form-control form-control-sm" id="NroEscritura" name="NroEscritura" formControlName="NroEscritura">
+                <div *ngFor="let validation of validation_messages.NroEscritura">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('NroEscritura').hasError(validation.type) && (newLibranza.get('NroEscritura').dirty || newLibranza.get('NroEscritura').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="BeneficiarioEmbargo">Beneficiario</label>
+                <input type="text" class="form-control form-control-sm" id="BeneficiarioEmbargo" name="BeneficiarioEmbargo" formControlName="BeneficiarioEmbargo">
+                <div *ngFor="let validation of validation_messages.BeneficiarioEmbargo">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('BeneficiarioEmbargo').hasError(validation.type) && (newLibranza.get('BeneficiarioEmbargo').dirty || newLibranza.get('BeneficiarioEmbargo').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="IdentificacionTributaria">Identificación Tributaria</label>
+                <input type="text" class="form-control form-control-sm" id="IdentificacionTributaria" name="IdentificacionTributaria" formControlName="IdentificacionTributaria">
+                <div *ngFor="let validation of validation_messages.IdentificacionTributaria">
+                  <div class="alert alert-info" role="alert" *ngIf="newLibranza.get('IdentificacionTributaria').hasError(validation.type) && (newLibranza.get('IdentificacionTributaria').dirty || newLibranza.get('IdentificacionTributaria').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row p-3" style="background-color: #2196f329">
+              <div class="col-sm-12">
+                <h6>Documentos de Pago</h6><hr>
+                <a class="float-right" href="javascript:;" (click)="OpenModalDocumentoPago('0',ModalDocumentoPago)"><i class="fas fa-plus"></i> Nuevo Documento de Pago</a>
+              </div>
+
+              <div class="col-sm-12 col-lg-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered text-center table-hover">
+                    <thead>
+                      <tr class="OrsnaMainC">
+                        <th class="text-white">Tipo</th>
+                        <th class="text-white">Número</th>
+                        <th class="text-white">Fecha</th>
+                        <th class="text-white">Monto Neto</th>
+                        <th class="text-white">IVA</th>
+                        <th class="text-white">IBB</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="table-light" *ngFor="let f of ListFacturas">
+                        <td>{{f.Tipo}}{{f.tipo}}</td>
+                        <td>{{f.Nro}}{{f.nro}}</td>
+                        <td>{{f.Fecha | date : "dd-MM-y"}}{{f.fecha | date : "dd-MM-y"}}</td>
+                        <td>{{f.Monto}}{{f.monto}}</td>
+                        <td>{{f.Iva}}{{f.iva}}</td>
+                        <td>{{f.Ibb}}{{f.ibb}}</td>
+                        <td *ngIf="f.nro == undefined">
+                          <a href="javascript:;" (click)="OpenModalDocumentoPago(f.Nro, ModalDocumentoPago)">
+                            <i class="fa fa-edit" style="margin-left: 5px"></i>
+                          </a>
+                          <a href="javascript:;" (click)="DeleteDocumentoPago(f.Nro)"><i class="fa fa-trash" style="margin-left: 5px"></i></a>
+                        </td>
+                        <td *ngIf="f.Nro == undefined">
+                          <a href="javascript:;" (click)="OpenModalDocumentoPago(f.nro, ModalDocumentoPago)">
+                            <i class="fa fa-edit" style="margin-left: 5px"></i>
+                          </a>
+                          <a href="javascript:;" (click)="DeleteDocumentoPago(f.nro)"><i class="fa fa-trash" style="margin-left: 5px"></i></a>
+                        </td>
+                      </tr>
+                      <tr *ngIf="ListFacturas.length==0">
+                        <td colspan="7">
+                          <div class="alert alert-light " role="alert">
+                            <a href="javascript:;" (click)="OpenModalDocumentoPago('0', ModalDocumentoPago)"><i class="fa fa-plus"></i> al menos un documento es requerido</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-sm-12">
+                <br />
+                <div class="alert alert-light" style="background-color: #e9ecef;">
+                  <table style="width:100%">
+                    <tbody>
+                      <tr>
+                        <td align="center"><input type="submit" value="Guardar" [disabled]="!newLibranza.valid || ListFacturas.length==0 || misBeneficiarios.length==0" class="btn btn-primary"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </form>
+          <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal DOCUMENTO DE PAGO------------------------------------------------------------------------------------ -->
+<ng-template #ModalDocumentoPago let-c="close" let-d="dismiss">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Documento de Pago (*)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="newFacturaLibranza" (ngSubmit)="SaveDocumentoPago(newFacturaLibranza.value)">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="tipo">Tipo (*)</label>
+              <select class="form-control form-control-sm" id="tipo" name="tipo" formControlName="tipo">
+                <option value="">Seleccione</option>
+                <option value="Factura">Factura</option>
+                <option value="Debito">Debito</option>
+                <option value="Credito">Credito</option>
+              </select>
+              <div *ngFor="let validation of validation_messages.Tipo">
+                <div class="alert alert-info" role="alert" *ngIf="newFacturaLibranza.get('tipo').hasError(validation.type) && (newFacturaLibranza.get('tipo').dirty || newFacturaLibranza.get('tipo').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="nro">Número (*)</label>
+              <input type="text" class="form-control form-control-sm" id="nro" name="nro" formControlName="nro">
+              <div *ngFor="let validation of validation_messages.Nro">
+                <div class="alert alert-info" role="alert" *ngIf="newFacturaLibranza.get('nro').hasError(validation.type) && (newFacturaLibranza.get('nro').dirty || newFacturaLibranza.get('nro').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="fecha">Fecha (*)</label>
+              <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" formControlName="fecha">
+              <div *ngFor="let validation of validation_messages.Fecha">
+                <div class="alert alert-info" role="alert" *ngIf="newFacturaLibranza.get('fecha').hasError(validation.type) && (newFacturaLibranza.get('fecha').dirty || newFacturaLibranza.get('fecha').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="monto">Monto Neto (*)</label>
+              <input type="number" class="form-control form-control-sm" id="monto" name="monto" formControlName="monto">
+              <div *ngFor="let validation of validation_messages.Monto">
+                <div class="alert alert-info" role="alert" *ngIf="newFacturaLibranza.get('monto').hasError(validation.type) && (newFacturaLibranza.get('monto').dirty || newFacturaLibranza.get('monto').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <div *ngIf="IdLibranzaTipo!=1">
+                <label for="iva">IVA</label>
+                <input type="number" class="form-control form-control-sm" id="iva" name="iva" formControlName="iva">
+                <div *ngFor="let validation of validation_messages.Iva">
+                  <div class="alert alert-info" role="alert" *ngIf="newFacturaLibranza.get('iva').hasError(validation.type) && (newFacturaLibranza.get('iva').dirty || newFacturaLibranza.get('iva').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <div *ngIf="IdLibranzaTipo!=1">
+                <label for="ibb">IBB</label>
+                <input type="number" class="form-control form-control-sm" id="ibb" name="ibb" formControlName="ibb">
+                <div *ngFor="let validation of validation_messages.Ibb">
+                  <div class="alert alert-info" role="alert" *ngIf="newFacturaLibranza.get('ibb').hasError(validation.type) && (newFacturaLibranza.get('ibb').dirty || newFacturaLibranza.get('ibb').touched)">
+                    {{validation.message}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" [disabled]="!newFacturaLibranza.valid" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!---------------------------------------------------------------FIN MODAL DOCUMENTO DE PAGO--------------------------------------------------->
+<!---------------------------------------------------------------MODAL AGREGAR BENEFICIARIO--------------------------------------------------->
+<div class="modal fade " id="AgregarBeneficiario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Beneficiario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="CuitBenenficiario">Identificación Tributaria</label>
+              <input (input)="getBeneficiarios()" name="CuitBenenficiario" [(ngModel)]="CuitBeneficiario" type="text" class="form-control form-control-sm" id="CuitBenenficiario">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="RazonSocialBeneficiario">Razón Social</label>
+              <input type="text" (input)="getBeneficiarios()" class="form-control form-control-sm" [(ngModel)]="RazonSocialBeneficiario" name="RazonSocialBeneficiario" id="RazonSocialBeneficiario">
+            </div>
+          </div>
+        </form>
+
+        <div class="table-responsive">
+          <table class="table table-bordered text-center table-hover">
+            <thead>
+              <tr>
+                <th>Identificación Tributaria</th>
+                <th>Razón Social</th>
+                <th>Cuenta Bancaria</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-light" *ngFor="let b of beneficiarios; index as i">
+                <td>{{b.cuit}}</td>
+                <td>{{b.razonSocial}}</td>
+                <td>
+                  <select [(ngModel)]="ArraySelect[b.id]" class="form-control form-control-sm" name="SelectBanco{{b.id}}"
+                          id="SelectBanco{{b.id}}" (change)="SelectBeneficiario(i)">
+                    <option value="">Seleccione</option>
+                    <option *ngFor="let bb of bancosBeneficiario[i]" value="{{bb.id}}">{{bb.nroCuenta}}</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!----------------------------------------------------------------------FIN MODAL AGREGAR BENEFICIARIO-------------------------------->
+
+
+<div class="modalLoading" *ngIf="loading==true"></div>

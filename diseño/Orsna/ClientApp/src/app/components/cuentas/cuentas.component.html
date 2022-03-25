@@ -1,0 +1,119 @@
+<div class="container-fluid">
+
+  <!-- Breadcrumbs
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="index.html">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Ventas</li>
+  </ol>-->
+  <!-- Page Content -->
+  <h3 class="font-weight-bold OrsnaMainTxt">{{nombreModulo}} Cuentas Fiduciarias</h3>
+  <hr>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <form [formGroup]="newCuenta" (ngSubmit)="SaveCuenta(newCuenta.value, ModalConfirmSave)">
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <label for="NroCuenta">Número de cuenta (*)</label>
+              <input class="form-control form-control-sm" id="NroCuenta" name="NroCuenta" formControlName="NroCuenta">
+              <div *ngFor="let validation of validation_messages.NroCuenta">
+                <div class="alert alert-info" role="alert" *ngIf="newCuenta.get('NroCuenta').hasError(validation.type) && (newCuenta.get('NroCuenta').dirty || newCuenta.get('NroCuenta').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="Nombre">Nombre de Cuenta (*)</label>
+              <input class="form-control form-control-sm" id="Nombre" name="Nombre" formControlName="Nombre">
+              <div *ngFor="let validation of validation_messages.Nombre">
+                <div class="alert alert-info" role="alert" *ngIf="newCuenta.get('Nombre').hasError(validation.type) && (newCuenta.get('Nombre').dirty || newCuenta.get('Nombre').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="Descripcion">Nombre Abreviado(*)</label>
+              <input class="form-control form-control-sm" id="Descripcion" name="Descripcion" formControlName="Descripcion">
+              <div *ngFor="let validation of validation_messages.Descripcion">
+                <div class="alert alert-info" role="alert" *ngIf="newCuenta.get('Descripcion').hasError(validation.type) && (newCuenta.get('Descripcion').dirty || newCuenta.get('Descripcion').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="IdLibranzaTipo">Tipo Libranza (*)</label>
+              <select class="form-control form-control-sm" id="IdLibranzaTipo" name="IdLibranzaTipo" formControlName="IdLibranzaTipo">
+                <option value="">Seleccione</option>
+                <option *ngFor="let tl of LibranzaTipos" value="{{tl.id}}">{{tl.nombre}}</option>
+              </select>
+              <div *ngFor="let validation of validation_messages.IdLibranzaTipo">
+                <div class="alert alert-info" role="alert" *ngIf="newCuenta.get('IdLibranzaTipo').hasError(validation.type) && (newCuenta.get('IdLibranzaTipo').dirty || newCuenta.get('IdLibranzaTipo').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="IdAeropuertosGrupo">Grupo Aeropuerto (*)</label>
+              <select class="form-control form-control-sm" id="IdAeropuertosGrupo" name="IdAeropuertosGrupo" formControlName="IdAeropuertosGrupo">
+                <option value="">Seleccione</option>
+                <option *ngFor="let tl of AeropuertosGrupos" value="{{tl.id}}">{{tl.nombre}}</option>
+              </select>
+              <div *ngFor="let validation of validation_messages.IdAeropuertosGrupo">
+                <div class="alert alert-info" role="alert" *ngIf="newCuenta.get('IdAeropuertosGrupo').hasError(validation.type) && (newCuenta.get('IdAeropuertosGrupo').dirty || newCuenta.get('IdAeropuertosGrupo').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for="FechaVigencia">Fecha de Vigencia</label>
+              <input type="date" class="form-control form-control-sm" id="FechaVigencia" name="FechaVigencia" formControlName="FechaVigencia">
+              <div *ngFor="let validation of validation_messages.FechaVigencia">
+                <div class="alert alert-info" role="alert" *ngIf="newCuenta.get('FechaVigencia').hasError(validation.type) && (newCuenta.get('FechaVigencia').dirty || newCuenta.get('FechaVigencia').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-light" style="background-color: #e9ecef;">
+                <table style="width:100%">
+                  <tbody>
+                    <tr>
+                      <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newCuenta.valid"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+        <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL CONFIRMAR-->
+<ng-template #ModalConfirmSave let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="returnList()">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>{{infoMessage}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="returnList()">Continuar</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

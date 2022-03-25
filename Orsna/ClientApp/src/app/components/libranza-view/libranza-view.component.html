@@ -1,0 +1,781 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-lg-5" *ngIf="lib!=null">
+
+      <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt; text-align:center;line-height:normal'>
+        <b>
+          <span lang=ES-AR style='font-size: 9.0pt;font-family:"Verdana","sans-serif"'>
+            Autorización de Pago Libranza ORSNA
+            &quot;B&quot;
+          </span>
+        </b>
+      </p>
+
+      <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt; text-align:right;line-height:normal'>
+        <span style='position:absolute;z-index:-1;left:0px;margin-left:0px;margin-top:2px;width:213px;height:66px'>
+          <img width='213' height='66' src="{{baseDir}}/assets/img/image001.jpg" alt="cabecera_nueva23">
+        </span>
+      </p>
+
+      <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:right;line-height:normal'>
+        <span lang=ES-AR style='font-size:8.0pt;
+font-family:"Verdana","sans-serif"'>Buenos Aires,</span>
+        <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'></span>
+        <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+          {{date | date: 'MMM d, y' }}
+        </span>
+      </p>
+
+      <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:right;line-height:normal'>
+        <span lang=ES-AR style='font-size:12.0pt;
+font-family:"Verdana","sans-serif"'>&nbsp;</span>
+      </p>
+
+      <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:right;line-height:normal'>
+        <b>
+          <span lang=ES-AR style='font-size:9.0pt;
+font-family:"Verdana","sans-serif"'>Libranza ORSNA Nº {{lib.nroLibranza}}</span>
+        </b>
+      </p>
+
+      <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:right;line-height:normal'>
+        <b>
+          <span lang=ES-AR style='font-size:6.0pt;
+font-family:"Verdana","sans-serif"'>&nbsp;</span>
+        </b>
+      </p>
+
+      <p class=MsoNormal style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'>
+        <b>
+          <span lang=ES-AR style='font-size:6.0pt;font-family:
+"Verdana","sans-serif"'>
+            Páguese por el Fideicomiso de Fortalecimiento del
+            Sistema Nacional de Aeropuertos a: AIRPORTS COUNCIL INTERNATIONAL (ACI)
+          </span>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Cuenta
+                  Pagadora:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.proyecto.cuenta.nombre}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Nº
+                  Cuenta Fiduciaria:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.proyecto.cuenta.nroCuenta}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  En
+                  concepto de:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.proyecto.descripcion}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Importe
+                  Neto a Transferir:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.montoNeto}}
+              </span>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal'>
+        <b>
+          <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+            Datos
+            de la cuenta depositaria:
+          </span>
+        </b>
+      </p>
+
+      <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>&nbsp;</span></b></p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Bank
+                  Name:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.beneficiario[0].bancos[0].nombreBanco}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Bank
+                  Adress:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.beneficiario[0].bancos[0].direccion}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Account
+                  (CAD)#:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.beneficiario[0].bancos[0].nroCuenta}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>BIC/SWIFT:</span></b></p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>ROYCCAT</span></p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+        <b>
+          <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+            Fecha
+            Vencimiento: {{lib.beneficiario[0].bancos[0].fechaVigencia  | date :  "dd-MM-y"}}
+          </span>
+        </b>
+      </p>
+
+      <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+        <b>
+          <u>
+            <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+              <span style='text-decoration:none'>&nbsp;</span>
+            </span>
+          </u>
+        </b>
+      </p>
+
+      <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+        <b>
+          <u>
+            <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+              Descuentos
+              a considerar en concepto de:
+            </span>
+          </u>
+        </b>
+      </p>
+
+      <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+        <b>
+          <u>
+            <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+              <span style='text-decoration:none'>&nbsp;</span>
+            </span>
+          </u>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Fdo
+                  Reparo:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+              <b>
+                <u>
+                  <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                    <span style='text-decoration:none'>{{lib.montoFondoReparo | currency:"$"}}</span>
+                  </span>
+                </u>
+              </b>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Multa:</span></b></p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+              <b>
+                <u>
+                  <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                    <span style='text-decoration:none'>{{lib.multa | currency:"$"}}</span>
+                  </span>
+                </u>
+              </b>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Mora:</span></b></p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <u>
+                  <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                    <span style='text-decoration:none'>{{lib.mora | currency:"$"}}</span>
+                  </span>
+                </u>
+              </b>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Total Descuentos</span>
+              </b>
+            </p>
+          </td>
+          <td width=510 valign=top style='width:382.4pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+              <b>
+                <u>
+                  <span lang=ES-AR
+                        style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>{{lib.montoRestante | currency:"$"}}</span>
+                </u>
+              </b>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal style='line-height:normal'>
+        <b>
+          <span lang=ES-AR
+                style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+            Retenciones a
+            practicar en concepto de Embargos / Cesiones
+          </span>
+        </b>
+      </p>
+
+      <p class=MsoNormal style='line-height:normal'>
+        <b>
+          <i>
+            <span lang=ES-AR
+                  style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Datos del Embargo</span>
+          </i>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=647
+             style='width:485.0pt;border-collapse:collapse;border:none'>
+        <tr>
+          <td width=68 valign=top style='width:50.75pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Embargo
+                  Nº:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=107 valign=top style='width:80.5pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  {{lib.nroEmbargo}}
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=90 valign=top style='width:67.65pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Responsable
+                  del embargo
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=226 valign=top style='width:169.4pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  {{lib.beneficiarioEmbargo}}
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=16 valign=top style='width:11.8pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Monto
+                  Embargo:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=140 valign=top style='width:104.9pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  {{lib.montoEmbargo | currency:"$"}}
+                </span>
+              </b>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:right;line-height:normal'>
+        <span lang=ES-AR style='font-size:8.0pt;
+font-family:"Verdana","sans-serif"'>&nbsp;</span>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=193
+             style='width:145.1pt;margin-left:339.95pt;border-collapse:collapse;border:none'>
+        <tr>
+          <td width=67 valign=top style='width:50.25pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Saldo
+                  Embargo:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=126 valign=top style='width:94.85pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal align=right style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:right;line-height:normal'>
+              <span lang=ES-AR style='font-size:8.0pt;
+  font-family:"Verdana","sans-serif"'>
+                {{lib.montoEmbargo | currency:"$"}}
+              </span>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal style='line-height:normal'>
+        <b>
+          <i>
+            <span lang=ES-AR
+                  style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+              Datos de las
+              Cesiones
+            </span>
+          </i>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Registra:</span></b></p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.registraCesion}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Nº
+                  Escritura Cesión:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.nroEscritura}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Beneficiario
+                  Cesión:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.beneficiarioEmbargo}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>CUIT:</span></b></p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>&nbsp;</span></p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal style='line-height:normal'>
+        <b>
+          <i>
+            <span lang=ES-AR
+                  style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+              Datos Generales del
+              Trámite:
+            </span>
+          </i>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Expediente
+                  ORSNA Nº
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.nroLibranza}}
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Objeto:</span></b></p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                {{lib.proyecto.objeto}}
+              </span>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal>
+        <b>
+          <span lang=ES-AR style='font-size:8.0pt;line-height:110%;
+font-family:"Verdana","sans-serif"'>Facturación:</span>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Invoice
+                  Número:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;text-align:center;line-height:normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  {{lib.factura[0].nro}}
+                </span>
+              </b>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width=151 valign=top style='width:113.15pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>Fecha:</span></b></p>
+          </td>
+          <td width=491 valign=top style='width:368.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  {{lib.factura[0].fecha  | date :  "dd-MM-y"}}
+                </span>
+              </b>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal>
+        <b>
+          <span lang=ES-AR style='font-size:8.0pt;line-height:110%;font-family:"Verdana","sans-serif"'>&nbsp;</span>
+        </b>
+      </p>
+
+      <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+             style='border-collapse:collapse;border:none'>
+        <tr>
+          <td width=66 valign=top style='width:49.4pt;border:solid windowtext 1.0pt; padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height: normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  Monto
+                  Factura:
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=180 valign=top style='width:134.65pt;border:solid windowtext 1.0pt;border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:normal'>
+              <b>
+                <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                  {{lib.montoNeto | currency:"$"}}
+                </span>
+              </b>
+            </p>
+          </td>
+          <td width=396 valign=top style='width:297.35pt;border:solid windowtext 1.0pt; border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height: normal'>
+              <span lang=ES-AR style='font-size:8.0pt;font-family:"Verdana","sans-serif"'>
+                (Monto
+                neto a transferir a {{lib.beneficiario[0].razonSocial}})
+              </span>
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p class=MsoNormal>
+        <b>
+          <span lang=ES-AR style='font-size:8.0pt;line-height:110%;font-family:"Verdana","sans-serif"'>&nbsp;</span>
+        </b>
+      </p>
+      <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;text-align:center'>
+        <b>
+          <span lang=ES-AR style='font-size:6.0pt;line-height:110%;font-family:"Verdana","sans-serif"'>
+            FIRMA Y SELLO ADMINISTRACIÓN                                             
+            FIRMA Y SELLO AUTORIZACIÓN DE PAGO
+          </span>
+        </b>
+      </p>
+
+      <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;text-align:center'>
+        <b>
+          <span lang=ES-AR style='font-size:6.0pt;line-height:110%;font-family:"Verdana","sans-serif"'>
+    ORSNA (Gerente o Responsable)                                                
+            ORSNA (Directorio)
+          </span>
+        </b>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

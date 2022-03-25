@@ -1,0 +1,129 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">Consulta Beneficiarios</h3>
+  <hr>
+  <div class="alert alert-primary" role="alert">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="FilterRazonSocial">Razón Social</label>
+        <input name="FilterRazonSocial" id="FilterRazonSocial" [(ngModel)]="FilterRazonSocial" class="form-control form-control-sm">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="FilterCuit">Identificación Tributaria</label>
+        <input name="FilterCuit" id="FilterCuit" [(ngModel)]="FilterCuit" class="form-control form-control-sm">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6 offset-lg-5">
+        <a class="btn btn-primary mt-4" role="button" style="color: #ffffff;margin-right:10px;" (click)="GetAll('desc','Id',1)"><i class="fa fa-search"></i> Buscar</a>
+        <a class="btn btn-primary mt-4" href="javascript:;" role="button" style="margin-right:10px" (click)="refresh()"><i class="fas fa-eraser"></i> Limpiar</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-sm-12">
+      <a [style.visibility]="puedeEditar ? 'visible' : 'hidden'" href="javascript:;" class="float-right" (click)="NewProveedor()"><i class="fa fa-plus"></i> Nuevo Beneficiario</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="table-responsive">
+        <table class="table text-center table-hover table-striped">
+          <thead class="text-white OrsnaMainC">
+            <tr>
+              <th scope="col">Razón Social &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','RazonSocial',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','RazonSocial',1)">&nbsp;</i></th>
+              <th scope="col">Identificación Tributaria &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Cuit',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Cuit',1)">&nbsp;</i></th>
+              <th scope="col">Fecha de alta &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','FechaAlta',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','FechaAlta',1)">&nbsp;</i></th>
+              <th scope="col">Correo Electrónico &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Email',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Email',1)">&nbsp;</i></th>
+              <th scope="col">Teléfono</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="proveedores?.length==0">
+
+              <td colspan="6">No se encontraron registros para la búsqueda.</td>
+            </tr>
+            <tr *ngFor="let p of proveedores">
+              <td>{{p.razonSocial}}</td>
+              <td>{{p.cuit}}</td>
+              <td>{{p.fechaAlta | date :  "dd-MM-y"}}</td>
+              <td>{{p.email}}</td>
+              <td>{{p.telefono}}</td>
+              <td>
+                <a title="Ver adjuntos" [style.visibility]="puedeEditar ? 'visible' : 'hidden'" (click)="getAdjuntosBeneficiario(p.id, p.razonSocial)" class="fa fa-folder-open OrsnaMainTxt" data-toggle="modal" href="javascript:;" data-target="#ModalMisAnexos"></a>
+                <a title="Editar" [style.visibility]="puedeEditar ? 'visible' : 'hidden'" (click)="EditProveedor(p.id)" class="fa fa-edit OrsnaMainTxt" style="margin-left: 5px" href="javascript:;"></a>
+                <a title="Eliminar" [style.visibility]="puedeEliminar ? 'visible' : 'hidden'" (click)="OpenModalDeleteProveedor(p.id, p.razonSocial)" class="fa fa-trash OrsnaMainTxt" style="margin-left: 5px" href="javascript:;"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="CountFilterElements" [(page)]="page" [maxSize]="5" [pageSize]="15" [rotate]="true" [boundaryLinks]="true" (pageChange)="GetAll('','',$event)"></ngb-pagination>
+  <label class="d-flex justify-content-center">Número de registros encontrados: {{CountFilterElements}} de {{CountElements}}</label>
+</div>
+<div class="modalLoading" *ngIf="loading==true"></div>
+<!--MODAL MIS ANEXOS-->
+<div class="modal fade " id="ModalMisAnexos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{NombreModalAnexos}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-bordered text-center table-hover">
+                <thead>
+                  <tr>
+                    <th>Nombre Archivo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let adj of AnexosBeneficiario" class="table-light">
+                    <td>{{adj.nombreArchivo}}{{adj.NombreArchivo}}</td>
+                    <td *ngIf="adj.Id!=undefined"><a href="javascript:;" (click)="getFileById(adj.Hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                    <td *ngIf="adj.id!=undefined"><a href="javascript:;" (click)="getFileById(adj.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIN DEL MODAL-->
+<!--MODAL ELIMINAR
+<ng-template #ModalDeleteProveedor let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>Realmente desea eliminar al proveedor: {{cbuToDelete}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="DeleteProveedor()">Ok</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

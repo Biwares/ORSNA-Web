@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">{{titulo}}</h3>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <form [formGroup]="newRol" (ngSubmit)="SaveRol(newRol.value, ModalConfirmSave)" (keydown.enter)="$event.preventDefault()">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="Nombre">Nombre Rol(*)</label>
+              <input class="form-control form-control-sm" id="Nombre" name="Nombre" formControlName="Nombre">
+              <div *ngFor="let validation of validation_messages.Nombre">
+                <div class="alert alert-info" role="alert" *ngIf="newRol.get('Nombre').hasError(validation.type) && (newRol.get('Nombre').dirty || newRol.get('Nombre').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+              <div class="col-xs-9 col-sm-8 col-md-12">
+                <div class="table-adaptive">
+                  <table class="table table-bordered table-striped table-hover table-condensed grilla">
+                    <thead>
+                      <tr>
+                        <th>Módulo</th>
+                        <th>Ver</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tr *ngFor="let mod of Modulos">
+                      <td>{{mod.moduloNombre}}</td>
+                      <td>
+                        <input type="checkbox" [name]="mod.idModulo + '_ver'" [value]="mod.idModulo" [checked]="mod.ver" (change)="Check($event)">
+                      </td>
+                      <td>
+                        <input type="checkbox" [name]="mod.idModulo + '_editar'" [value]="mod.idModulo" [checked]="mod.editar" (change)="Check($event)">
+                      </td>
+                      <td>
+                        <input type="checkbox" [name]="mod.idModulo + '_eliminar'" [value]="mod.idModulo" [checked]="mod.eliminar" (change)="Check($event)">
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-light" style="background-color: #e9ecef;">
+                <table style="width:100%">
+                  <tbody>
+                    <tr>
+                      <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newRol.valid"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+        <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL CONFIRMAR-->
+<ng-template #ModalConfirmSave let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="returnList()">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>{{infoMessage}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="returnList()">Continuar</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

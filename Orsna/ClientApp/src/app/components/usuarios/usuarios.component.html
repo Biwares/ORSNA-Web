@@ -1,0 +1,231 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">{{titulo}}</h3>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <form [formGroup]="newUsuario" (ngSubmit)="SaveUsuario(newUsuario.value, ModalConfirmSave)" (keydown.enter)="$event.preventDefault()">
+
+          <div class="form-row">
+
+            <div class="form-group col-md-3">
+              <label for="Email">Correo electrónico (*)</label>
+              <input type="email" [attr.disabled]="idUsuario!='0' ? '' : null" class="form-control form-control-sm" id="Email" name="Email" formControlName="Email">
+              <div *ngFor="let validation of validation_messages.Email">
+                <div class="alert alert-info" role="alert" *ngIf="newUsuario.get('Email').hasError(validation.type) && (newUsuario.get('Email').dirty || newUsuario.get('Email').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group col-md-3" style=" padding-top: 35px;">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" (change)="checkStatus($event)" class="custom-control-input" id="CheckAD" name="CheckAD" formControlName="CheckAD">
+                <label class="custom-control-label" for="CheckAD">AD Usuarios</label>
+              </div>
+            </div>
+            <div [formGroup]="passwordFormGroup" class="col-md-9" *ngIf="!isDisabled">
+              <div class="form-row">
+
+                <div class="form-group col-md-6">
+                  <label for="Password">Contraseña (*)</label>
+                  <input class="form-control form-control-sm" type="password" name="Password" formControlName="Password">
+                  <p class="alert alert-info" *ngIf="passwordFormGroup.controls.Password.errors?.required && passwordFormGroup.controls.Password.touched">requerido</p>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="ConfirmPassword">Confirmar contraseña (*)</label>
+                  <input class="form-control form-control-sm" type="password" name="ConfirmPassword" formControlName="ConfirmPassword">
+                  <p class="alert alert-info" *ngIf="passwordFormGroup.controls.ConfirmPassword.errors?.required && passwordFormGroup.controls.ConfirmPassword.touched">requerido</p>
+                  <p class="alert alert-info" *ngIf="passwordFormGroup.errors?.doesMatchPassword">Las contraseñas deben coincidir</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row p-3" style="background-color: #2196f329">
+            <div class="col-sm-12">
+              <h6>Áreas</h6><hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a class="float-right" data-toggle="modal" href="javascript:;" (click)="SeleccionarAreas();" data-target="#ModalMisAreas"><i class="fa fa-plus"></i> Seleccionar Áreas</a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-8 offset-md-2">
+                <div class="table-responsive">
+                  <table class="table table-bordered text-center table-hover">
+                    <thead>
+                      <tr class="OrsnaMainC">
+                        <th class="text-white">Áreas</th>
+                      </tr>
+                      <tr>
+                        <div class="alert alert-light " role="alert" *ngIf="selAreas.length==0">
+                          <a data-toggle="modal" href="javascript:;" data-target="#ModalMisAreas" (click)="SeleccionarAreas();"><i class="fa fa-plus"></i> al menos un área es requerido</a>
+                        </div>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="table-light" *ngFor="let ma of selAreas">
+                        <td>{{ma.nombre}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row p-3" style="background-color: #2196f329">
+            <div class="col-sm-12">
+              <h6>Roles</h6><hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a class="float-right" data-toggle="modal" href="javascript:;" (click)="SeleccionarRoles();" data-target="#ModalMisRoles"><i class="fa fa-plus"></i> Seleccionar Roles</a>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-8 offset-md-2">
+                <div class="table-responsive">
+                  <table class="table table-bordered text-center table-hover">
+                    <thead>
+                      <tr class="OrsnaMainC">
+                        <th class="text-white">Roles</th>
+                      </tr>
+                      <tr>
+                        <div class="alert alert-light " role="alert" *ngIf="selRoles.length==0">
+                          <a data-toggle="modal" href="javascript:;" data-target="#ModalMisRoles" (click)="SeleccionarRoles();"><i class="fa fa-plus"></i> al menos un rol es requerido</a>
+                        </div>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="table-light" *ngFor="let ma of selRoles">
+                        <td>{{ma.nombre}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-light" style="background-color: #e9ecef;">
+                <table style="width:100%">
+                  <tbody>
+                    <tr>
+                      <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newUsuario.valid || selRoles.length==0 || selAreas.length==0"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+        <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL CONFIRMAR-->
+<ng-template #ModalConfirmSave let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="returnList()">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>{{infoMessage}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="returnList()">Continuar</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->
+<!--MODAL AGREGAR AREAS-->
+<div class="modal fade " id="ModalMisAreas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Área</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of misAreas">
+              <td>{{a.codigo}}</td>
+              <td>{{a.nombre}}</td>
+              <td *ngIf="a.check==false">
+                <input class="form-check-input position-static" type="checkbox" (click)="SelectArea(a.idArea,a.nombre)" aria-label="...">
+              </td>
+              <td *ngIf="a.check==true">
+                <input class="form-check-input position-static" type="checkbox" (click)="SelectArea(a.idArea,a.nombre)" aria-label="..." checked>
+              </td>
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"  (click)="GuardarAreas();" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIN DEL MODAL-->
+<!--MODAL AGREGAR ROLES-->
+<div class="modal fade " id="ModalMisRoles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Roles</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of misRoles">
+              <td>{{a.idRol}}</td>
+              <td>{{a.nombre}}</td>
+              <td *ngIf="a.check==false">
+                <input class="form-check-input position-static" type="checkbox" (click)="SelectRol(a.idRol,a.nombre)" aria-label="...">
+              </td>
+              <td *ngIf="a.check==true">
+                <input class="form-check-input position-static" type="checkbox" (click)="SelectRol(a.idRol,a.nombre)" aria-label="..." checked>
+              </td>
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="GuardarRoles();" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FIN DEL MODAL-->

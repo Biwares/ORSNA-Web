@@ -1,0 +1,380 @@
+
+<div class="container-fluid">
+  <form [formGroup]="newProyecto" (ngSubmit)="SaveProyecto(newProyecto.value)" (keydown.enter)="$event.preventDefault()">
+    <div class="row">
+      <div class="form-group col-md-9">
+        <h3 class="font-weight-bold OrsnaMainTxt">{{nombreModulo}} Proyectos</h3>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="IdProyecto"> Código Proyecto</label>
+        <input type="text" class="form-control form-control-sm" disabled value="{{IdTentativo}} - {{cuentaSeleccionada}}">
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="form-row">
+
+          <div class="form-group col-md-3">
+            <label for="Nombre">Nombre del proyecto (*)</label>
+            <input type="text" class="form-control form-control-sm" id="Nombre" name="Nombre" formControlName="Nombre">
+            <div *ngFor="let validation of validation_messages.Nombre">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('Nombre').hasError(validation.type) && (newProyecto.get('Nombre').dirty || newProyecto.get('Nombre').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="CodObra">Cod Obra / Ubicación geográfica</label>
+            <input type="text" class="form-control form-control-sm" id="CodObra" name="CodObra" formControlName="CodObra">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="Descripcion">Descripción (*)</label>
+            <input type="text" class="form-control form-control-sm" id="Descripcion" name="Descripcion" formControlName="Descripcion">
+            <div *ngFor="let validation of validation_messages.Descripcion">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('Descripcion').hasError(validation.type) && (newProyecto.get('Descripcion').dirty || newProyecto.get('Descripcion').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="IdEstadoProyecto">Estado (*)</label>
+            <select class="form-control form-control-sm" id="IdEstadoProyecto" name="IdEstadoProyecto" formControlName="IdEstadoProyecto">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let e of estados" value="{{e.id}}">{{e.nombre}}</option>
+            </select>
+            <div *ngFor="let validation of validation_messages.IdEstadoProyecto">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('IdEstadoProyecto').hasError(validation.type) && (newProyecto.get('IdEstadoProyecto').dirty || newProyecto.get('IdEstadoProyecto').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="IdArea">Área (*)</label>
+            <select class="form-control form-control-sm" id="IdArea" name="IdArea" formControlName="IdArea">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let a of areas" value="{{a.id}}">{{a.codigo}}</option>
+            </select>
+            <div *ngFor="let validation of validation_messages.IdArea">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('IdArea').hasError(validation.type) && (newProyecto.get('IdArea').dirty || newProyecto.get('IdArea').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="IdCuenta">Cuenta Fiduciaria (*)</label>
+            <select (change)="changeCuenta($event)" class="form-control form-control-sm" id="IdCuenta" name="IdCuenta" formControlName="IdCuenta">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let c of cuentas" value="{{c.id}}">{{c.descripcion}}</option>
+            </select>
+            <div *ngFor="let validation of validation_messages.IdCuenta">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('IdCuenta').hasError(validation.type) && (newProyecto.get('IdCuenta').dirty || newProyecto.get('IdCuenta').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="MontoTotal">Monto Total</label>
+            <input type="text" (focus)="transformAmount($event)" class="form-control form-control-sm" id="MontoTotal" name="MontoTotal" formControlName="MontoTotal" [attr.disabled]="!puedeEditarMonto ? '' : null">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="MontoPagadoAniosAnteriores">Monto Pagado Años Anteriores</label>
+            <input type="text" (focus)="transformAmount($event)" class="form-control form-control-sm" id="MontoPagadoAniosAnteriores" name="MontoPagadoAniosAnteriores" formControlName="MontoPagadoAniosAnteriores" [attr.disabled]="!puedeEditarMonto ? '' : null">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="DestinosId">Destino (*)</label>
+            <select class="form-control form-control-sm" id="DestinosId" name="DestinosId" formControlName="DestinosId" (change)="changeDestino($event)">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let a of destinos" value="{{a.id}}">{{a.nombre}}</option>
+            </select>
+            <div *ngFor="let validation of validation_messages.DestinosId">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('DestinosId').hasError(validation.type) && (newProyecto.get('DestinosId').dirty || newProyecto.get('DestinosId').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="PagosImpuestosIncluidos" name="PagosImpuestosIncluidos" formControlName="PagosImpuestosIncluidos">
+              <label class="custom-control-label" for="PagosImpuestosIncluidos">Pagos con Impuestos incluidos</label>
+            </div>
+          </div>
+        </div>
+        <div class="row p-3" style="background-color: #2196f329" *ngIf="requiereAeropuerto">
+          <div class="col-sm-12">
+            <h6>Aeropuertos</h6><hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <a class="float-right" data-toggle="modal" href="javascript:;" (click)="SeleccionarAeropuertos();"  data-target="#ModalMisAero"><i class="fa fa-plus"></i> Seleccionar Aeropuerto</a>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-8 offset-md-2">
+              <div class="table-responsive">
+                <table class="table table-bordered text-center table-hover">
+                  <thead>
+                    <tr class="OrsnaMainC">
+                      <th class="text-white">Aeropuertos</th>
+                    </tr>
+                    <tr>
+                      <div class="alert alert-light " role="alert" *ngIf="misAerosEnGrillaDeAlta.length==0">
+                        <a data-toggle="modal" href="javascript:;" (click)="SeleccionarAeropuertos();" data-target="#ModalMisAero"><i class="fa fa-plus"></i> al menos un aeropuerto es requerido</a>
+                      </div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="table-light" *ngFor="let ma of misAerosEnGrillaDeAlta">
+                      <td>{{ma.nombre}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row p-3">
+          <div class="form-group col-md-4">
+            <label for="NroContratacion">Nro. Expediente de Contratación</label>
+            <input type="text" class="form-control form-control-sm" id="NroContratacion" name="NroContratacion" formControlName="NroContratacion">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="NroObra">Nro. Expediente de Obra</label>
+            <input type="text" class="form-control form-control-sm" id="NroObra" name="NroObra" formControlName="NroObra">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="NroPago">Nro. Expediente de Pago</label>
+            <input type="text" class="form-control form-control-sm" id="NroPago" name="NroPago" formControlName="NroPago">
+          </div>
+          <div class="form-group col-md-6 offset-md-3">
+            <label for="Objeto">Objeto</label>
+            <textarea class="form-control" rows="3" id="Objeto" name="Objeto" formControlName="Objeto"></textarea>
+            <div *ngFor="let validation of validation_messages.Objeto">
+              <div class="alert alert-info" role="alert" *ngIf="newProyecto.get('Objeto').hasError(validation.type) && (newProyecto.get('Objeto').dirty || newProyecto.get('Objeto').touched)">
+                {{validation.message}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--///////////////////////////FILES///////////////////////////////////////////////////////////////////////-->
+        <form class="user-form" [formGroup]="formFiles" novalidate>
+          <div class="row p-3" style="background-color: #2196f329">
+            <div class="col-sm-12 ">
+              <h6>Anexos</h6><hr>
+            </div>
+            <div class="col-sm-12 col-lg-4 p-3">
+              <h6>Anexo II  (*)</h6>
+              <ngb-alert *ngIf="nameAdj2==''" type="info" (close)="infoMessage = null">Debe Agregar un Anexo</ngb-alert>
+              <ngb-alert *ngIf="modificarProyectoAnexo2==true" type="info" (close)="infoMessage = null">Debe Agregar un Anexo para modificar</ngb-alert>
+              <div class="custom-file">
+                <input *ngIf="modificarProyectoAnexo2==true || (IdProyecto == '' || IdProyecto == '0')" type="file" class="custom-file-input" id="Adjunto2" name="Adjunto2" #uploader (change)="fileChangeAdjunto2(uploader.files)">
+                <label class="custom-file-label" for="Adjunto2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                    <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                  </svg>
+                  <span>{{nameAdj2}}</span>
+                </label>
+                <div *ngFor="let validation of validation_messages.Adjunto2">
+                  <div class="alert alert-info" role="alert" *ngIf="nameAdj2=='' && (newProyecto.get('Adjunto2').dirty || newProyecto.get('Adjunto2').touched)">
+                    Anexo requerido
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive mt-3">
+                <table class="table table-bordered text-center table-hover" *ngIf="IdProyecto!='0'">
+                  <thead>
+                    <tr class="OrsnaMainC">
+                      <th class="text-white">Nombre Archivo</th>
+                      <th class="text-white">Fecha</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let ad of misAdjuntos">
+                    <tr class="table-light" *ngIf="ad.tipoAnexo==2">
+                      <td>{{ad.nombreArchivo}}{{ad.NombreArchivo}}</td>
+                      <td>{{ad.fechaAlta | date :  "dd-MM-y"}}{{ad.FechaAlta | date :  "dd-MM-y"}}</td>
+                      <td *ngIf="ad.Id!=undefined"><a title="Descargar" href="javascript:;" (click)="getFileById(ad.Hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                      <td *ngIf="ad.id!=undefined"><a title="Descargar" href="javascript:;" (click)="getFileById(ad.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="custom-control custom-checkbox" *ngIf="IdProyecto!='0'">
+                <input type="checkbox" class="custom-control-input"  id="modificarProyectoAnexo2" name="modificarProyectoAnexo2" (change)="validarAnexo2()" >
+                <label class="custom-control-label" for="modificarProyectoAnexo2">Modificación de Anexo II</label>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-4 p-3" *ngIf="IdProyecto!='0'">
+              <div>
+                <h6>Otros</h6>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="Adjunto3" name="Adjunto3" #uploader (change)="fileChangeAdjunto3(uploader.files)">
+                  <label class="custom-file-label" for="Adjunto3">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                      <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                    </svg>
+                    <span>{{nameAdj3}}</span>
+                  </label>
+                </div>
+              </div>
+              <div class="table-responsive mt-3">
+                <table class="table table-bordered text-center table-hover">
+                  <thead>
+                    <tr class="OrsnaMainC">
+                      <th class="text-white">Nombre Archivo</th>
+                      <th class="text-white">Fecha</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let ad of misAdjuntos">
+                    <tr class="table-light" *ngIf="ad.tipoAnexo==3">
+                      <td>{{ad.nombreArchivo}}{{ad.NombreArchivo}}</td>
+                      <td>{{ad.fechaAlta | date :  "dd-MM-y"}}{{ad.FechaAlta | date :  "dd-MM-y"}}</td>
+                      <td *ngIf="ad.Id!=undefined"><a title="Descargar" href="javascript:;" (click)="getFileById(ad.Hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                      <td *ngIf="ad.id!=undefined"><a title="Descargar" href="javascript:;" (click)="getFileById(ad.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                      <td *ngIf="ad.Id!=undefined"><a title="Eliminar" href="javascript:;" (click)="deleteAdjunto(ad.Id)"><i class="fa fa-times-circle text-danger fa-2x"></i></a></td>
+                      <td *ngIf="ad.id!=undefined"><a title="Eliminar" href="javascript:;" (click)="deleteAdjunto(ad.id)"><i class="fa fa-times-circle text-danger fa-2x"></i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-sm-12 col-lg-4 p-3">
+              <div *ngIf="IdProyecto!='0'">
+                <h6>Anexo I (*)</h6><ngb-alert *ngIf="nameAdj1==''" type="info" (close)="infoMessage = null">Debe Agregar un Anexo para modificar</ngb-alert>
+                <div class="custom-file">
+                  <input *ngIf="modificarProyecto==true" type="file" class="custom-file-input" id="Adjunto1" name="Adjunto1" #uploader (change)="fileChangeAdjunto1(uploader.files)">
+                  <label class="custom-file-label" for="Adjunto1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                      <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                    </svg>
+                    <span>{{nameAdj1}}</span>
+                  </label>
+                  <div *ngFor="let validation of validation_messages.Adjunto1">
+                    <div class="alert alert-info" role="alert" *ngIf="nameAdj1=='' && (newProyecto.get('Adjunto1').dirty || newProyecto.get('Adjunto1').touched)">
+                      Anexo requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive mt-3">
+                  <table class="table table-bordered text-center table-hover">
+                    <thead>
+                      <tr class="OrsnaMainC">
+                        <th class="text-white">Nombre Archivo</th>
+                        <th class="text-white">Fecha</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let ad of misAdjuntos">
+                      <tr class="table-light" *ngIf="ad.tipoAnexo==1">
+                        <td>{{ad.nombreArchivo}}{{ad.NombreArchivo}}</td>
+                        <td>{{ad.fechaAlta | date :  "dd-MM-y"}}{{ad.FechaAlta | date :  "dd-MM-y"}}</td>
+                        <td *ngIf="ad.Id!=undefined"><a title="Descargar" href="javascript:;" (click)="getFileById(ad.Hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                        <td *ngIf="ad.id!=undefined"><a title="Descargar" href="javascript:;" (click)="getFileById(ad.hash)"><i class="fa fa-chevron-circle-down fa-2x"></i></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" (change)="validarAnexo()" checked id="modificarProyecto" name="modificarProyecto">
+                  <label class="custom-control-label" for="modificarProyecto">Modificación de Proyecto</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!--------------------------------------------FIN DE FILES------------------------------------------------------->
+        <div class="row">
+          <div class="col-sm-12">
+            <br />
+            <div class="alert alert-light" style="background-color: #e9ecef;">
+              <table style="width:100%">
+                <tbody>
+                  <tr>
+                    <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newProyecto.valid || nameAdj2=='' || ((IdProyecto != '' && IdProyecto != '0') && nameAdj1=='') || (requiereAeropuerto && misAerosEnGrillaDeAlta.length==0)"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+      </div>
+    </div>
+  </form>
+
+  <!--MODAL CONFIRMAR-->
+  <ng-template #ModalConfirmSave let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+      <button type="button" class="close" aria-label="Close" (click)="returnList()">
+        <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <p>{{infoMessage}}</p>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="returnList()">Continuar</button>
+    </div>
+  </ng-template>
+  <!--FIN DEL MODAL-->
+  <!--MODAL AGREGAR AEROPUERTO-->
+  <div class="modal fade " id="ModalMisAero" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Aeropuerto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group col-md-3">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox"  id="todos" name="todos" [(ngModel)]="selectedAll" (change)="SelectAeroTodos()" value="true" class="custom-control-input">
+              <label class="custom-control-label" for="todos">Seleccionar Todos</label>
+            </div>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Fin</th>
+                <th scope="col">Nombre Corto</th>
+                <th scope="col">Cod Iata</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of aeropuertos">
+                <th scope="row">{{a.nombre}}</th>
+                <td>{{a.fechainicio | date :  "dd-MM-y"}}</td>
+                <td>{{a.fechafin | date :  "dd-MM-y"}}</td>
+                <td>{{a.nombreCorto}}</td>
+                <td>{{a.codIata}}</td>
+                <td>
+                  <input class="form-check-input position-static" [(ngModel)]="a.selected" type="checkbox" (click)="SelectAero(a);checkIfAllSelected();" aria-label="...">
+                </td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="GuardarAeropuertos();" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--FIN DEL MODAL-->
+
+  <div class="modalLoading" *ngIf="loading==true"></div>

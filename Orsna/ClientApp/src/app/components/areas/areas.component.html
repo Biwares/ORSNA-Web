@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">{{titulo}}</h3>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <form [formGroup]="newArea" (ngSubmit)="SaveArea(newArea.value, ModalConfirmSave)" (keydown.enter)="$event.preventDefault()">
+          <div class="form-row">
+            <div class="form-group col-md-4 offset-md-2">
+              <label for="Codigo">Código(*)</label>
+              <input class="form-control form-control-sm" id="Codigo" name="Codigo" formControlName="Codigo">
+              <div *ngFor="let validation of validation_messages.Codigo">
+                <div class="alert alert-info" role="alert" *ngIf="newArea.get('Codigo').hasError(validation.type) && (newArea.get('Codigo').dirty || newArea.get('Codigo').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="Nombre">Nombre Área(*)</label>
+              <input class="form-control form-control-sm" id="Nombre" name="Nombre" formControlName="Nombre">
+              <div *ngFor="let validation of validation_messages.Nombre">
+                <div class="alert alert-info" role="alert" *ngIf="newArea.get('Nombre').hasError(validation.type) && (newArea.get('Nombre').dirty || newArea.get('Nombre').touched)">
+                  {{validation.message}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-light" style="background-color: #e9ecef;">
+                <table style="width:100%">
+                  <tbody>
+                    <tr>
+                      <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newArea.valid"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+        <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL CONFIRMAR-->
+<ng-template #ModalConfirmSave let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="returnList()">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>{{infoMessage}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="returnList()">Continuar</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

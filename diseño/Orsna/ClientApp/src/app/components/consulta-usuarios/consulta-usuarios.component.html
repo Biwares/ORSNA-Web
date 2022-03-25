@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">Consulta Usuario</h3>
+  <hr>
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="alert alert-primary" role="alert">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-4 offset-md-1">
+              <label for="FilterEmail">Email</label>
+              <input name="FilterEmail" id="FilterEmail" [(ngModel)]="FilterEmail" class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-2">
+              <a class="btn btn-primary mt-4" style="color: #ffffff" role="button" (click)="GetAll('desc','idUsuario',1)"><i class="fa fa-search"></i>Buscar</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-sm-12">
+      <a href="javascript:;" class="float-right" (click)="NewUsuario()"><i class="fa fa-plus"></i>Nuevo Usuario</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="table-responsive">
+        <table class="table text-center table-hover table-striped">
+          <thead class="text-white OrsnaMainC">
+            <tr>
+              <th scope="col">ID&nbsp;<i class="fa fa-angle-down" (click)="GetAll('desc','Id',1)">&nbsp;</i> <i class="fa fa-angle-up" (click)="GetAll('asc','Id',1)">&nbsp;</i></th>
+              <th scope="col">Email&nbsp;<i class="fa fa-angle-down" (click)="GetAll('desc','Email',1)">&nbsp;</i> <i class="fa fa-angle-up" (click)="GetAll('asc','Email',1)">&nbsp;</i></th>
+              <th scope="col">Estado</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of usuarios">
+              <td>{{a.id}}</td>
+              <td>{{a.email}}</td>
+              <td>{{a.estado}}</td>
+              <td>
+                <a (click)="EditUsuario(a.id)"><i class="fa fa-edit OrsnaMainTxt" style="margin-left: 5px"></i></a>
+                <a (click)="OpenModalDeleteUsuario(a.id, a.email, ModalDeleteUsuario)"><i class="fa fa-trash OrsnaMainTxt" style="margin-left: 5px"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" (pageChange)="GetAll('','',$event)" [collectionSize]="CountPages" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+</div>
+
+<!--MODAL ELIMINAR-->
+<ng-template #ModalDeleteUsuario let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>Realmente eliminar el Usuario : {{EmailUsuarioToDelete}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="c('cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="DeleteUsuario()">Ok</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

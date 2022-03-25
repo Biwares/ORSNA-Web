@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">Consulta de Cuentas Fiduciarias</h3>
+  <hr>
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="alert alert-primary" role="alert">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="FilterNroCuenta">Número de cuenta</label>
+              <input name="FilterNroCuenta" id="FilterNroCuenta" [(ngModel)]="FilterNroCuenta" class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterNombre">Nombre</label>
+              <input name="FilterNombre" id="FilterNombre" [(ngModel)]="FilterNombre" class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="FilterTipoLibranza">Tipo de Libranza</label>
+              <select name="FilterTipoLibranza" id="FilterTipoLibranza" [(ngModel)]="FilterTipoLibranza" class="form-control form-control-sm">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let tl of LibranzaTipos" value="{{tl.id}}">{{tl.nombre}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="FilterAeropuertoGrupo">Grupo de Aeropuertos</label>
+              <select name="FilterAeropuertoGrupo" id="FilterAeropuertoGrupo" [(ngModel)]="FilterAeropuertoGrupo" class="form-control form-control-sm">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let tl of AeropuertosGrupos" value="{{tl.id}}">{{tl.nombre}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-1">
+              <a class="btn btn-primary mt-4" role="button" style="color: #ffffff" (click)="GetAll('desc','FechaCreacion',1)"><i class="fa fa-search"></i> Buscar</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-sm-12">
+      <a href="javascript:;" class="float-right" (click)="NewCuenta()"><i class="fa fa-plus"></i> Nueva Cuenta</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="table-responsive">
+        <table class="table text-center table-hover table-striped">
+          <thead class="text-white OrsnaMainC">
+            <tr>
+              <th scope="col">Nro de cuenta &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','NroCuenta',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','NroCuenta',1)">&nbsp;</i></th>
+              <th scope="col">Nombre &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','Nombre',1)">&nbsp;</i> <i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','Nombre',1)">&nbsp;</i></th>
+              <th scope="col">Tipo de Libranza &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','TipoLibranza',1)">&nbsp;</i><i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','TipoLibranza',1)">&nbsp;</i></th>
+              <th scope="col">Grupo de Aeropuertos &nbsp;<i class="fa fa-angle-down" href="javascript:;" (click)="GetAll('desc','GrupoAeropuertos',1)">&nbsp;</i><i class="fa fa-angle-up" href="javascript:;" (click)="GetAll('asc','GrupoAeropuertos',1)">&nbsp;</i></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of cuentas">
+              <td>{{c.nroCuenta}}</td>
+              <td>{{c.nombre}}</td>
+              <td>{{c.libranzaTipo.nombre}}</td>
+              <td>{{c.aeropuertosGrupo.nombre}}</td>
+              <td>
+                <a href="javascript:;" (click)="EditCuenta(c.id)"><i class="fa fa-edit OrsnaMainTxt" style="margin-left: 5px"></i></a>
+                <a href="javascript:;" (click)="OpenModalDeleteCuenta(c.id, c.nroCuenta, ModalDeleteCuenta)"><i class="fa fa-trash OrsnaMainTxt" style="margin-left: 5px"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="CountPages" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="GetAll('','',$event)" ></ngb-pagination>
+</div>
+
+<!--MODAL ELIMINAR-->
+<ng-template #ModalDeleteCuenta let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>Realmente desea eliminar la Cuenta Nro: {{nroCuentaToDelete}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="DeleteCuenta()">Ok</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

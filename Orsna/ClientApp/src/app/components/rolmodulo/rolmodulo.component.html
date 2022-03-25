@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">{{titulo}}</h3>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <form [formGroup]="newRolModulo" (ngSubmit)="SaveRolModulo(newRolModulo.value, ModalConfirmSave)">
+          <div class="form-row">
+
+            <div class="form-group col-md-4">
+              <label for="idrol">Rol</label>
+              <select class="form-control form-control-sm" name="rol" id="rol" [(ngModel)]="idRol">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let e of roles" value="{{e.id}}">{{e.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="idmodulo">Modulo</label>
+              <select class="form-control form-control-sm" name="modulo" id="modulo" [(ngModel)]="idModulo">
+                <option value="">Seleccionar</option>
+                <option *ngFor="let e of modulos" value="{{e.id}}">{{e.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="permisos">Permisos</label>
+
+            </div>
+
+          </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="alert alert-light" style="background-color: #e9ecef;">
+                  <table style="width:100%">
+                    <tbody>
+                      <tr>
+                        <td align="center"><input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!newRolModulo.valid"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+</form>
+        <ngb-alert *ngIf="infoMessage" type="info" (close)="infoMessage = null">{{ infoMessage }}</ngb-alert>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL CONFIRMAR-->
+<ng-template #ModalConfirmSave let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="returnList()">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>{{infoMessage}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="returnList()">Continuar</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->

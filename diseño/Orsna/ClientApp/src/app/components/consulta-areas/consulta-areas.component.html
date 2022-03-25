@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <h3 class="font-weight-bold OrsnaMainTxt">Consulta Área</h3>
+  <hr>
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="alert alert-primary" role="alert">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-4 offset-md-1">
+              <label for="FilterCodArea">Código de Área</label>
+              <input name="FilterCodArea" id="FilterCodArea" [(ngModel)]="FilterCodArea" class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="FilterNombre">Nombre del Área</label>
+              <input name="FilterNombre" id="FilterNombre" [(ngModel)]="FilterNombre" class="form-control form-control-sm">
+            </div>
+            <div class="form-group col-md-2">
+              <a class="btn btn-primary mt-4" style="color: #ffffff" role="button" (click)="GetAll('desc','idArea',1)"><i class="fa fa-search"></i> Buscar</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-sm-12">
+      <a href="javascript:;" class="float-right" (click)="NewArea()"><i class="fa fa-plus"></i> Nueva Área</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="table-responsive">
+        <table class="table text-center table-hover table-striped">
+          <thead class="text-white OrsnaMainC">
+            <tr>
+              <th scope="col">Código de Área &nbsp;<i class="fa fa-angle-down" (click)="GetAll('desc','Codigo',1)">&nbsp;</i> <i class="fa fa-angle-up" (click)="GetAll('asc','Codigo',1)">&nbsp;</i></th>
+              <th scope="col">Nombre del Área &nbsp;<i class="fa fa-angle-down" (click)="GetAll('desc','Nombre',1)">&nbsp;</i> <i class="fa fa-angle-up" (click)="GetAll('asc','Nombre',1)">&nbsp;</i></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of areas">
+              <td>{{a.codigo}}</td>
+              <td>{{a.nombre}}</td>
+              <td>
+                <a (click)="EditArea(a.id)"><i class="fa fa-edit OrsnaMainTxt" style="margin-left: 5px"></i></a>
+                <a (click)="OpenModalDeleteArea(a.id, a.nombre, ModalDeleteArea)"><i class="fa fa-trash OrsnaMainTxt" style="margin-left: 5px"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ngb-pagination class="d-flex justify-content-center" (pageChange)="GetAll('','',$event)" [collectionSize]="CountPages" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+</div>
+
+<!--MODAL ELIMINAR-->
+<ng-template #ModalDeleteArea let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmar</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
+      <i class="fa fa-times-circle" style="margin-left: 5px"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <p>Realmente eliminar el Area con nombre: {{NombreAreaToDelete}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="c('cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="DeleteArea()">Ok</button>
+  </div>
+</ng-template>
+<!--FIN DEL MODAL-->
