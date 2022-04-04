@@ -187,224 +187,225 @@ namespace BL.Libranza
                 cell.Colspan = 14;
                 cell.Border = 0;
                 table.AddCell(cell);
-                if (libranza.RegistraCesion)
-                {
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("Tipo:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //if (libranza.RegistraCesion)
+                //{
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionTipoCuenta), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("Tipo:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("N°Cuenta:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionTipoCuenta), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionNroCuenta), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("N°Cuenta:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("Banco:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionNroCuenta), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionNombreBanco), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("Banco:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("Surcusal:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionNombreBanco), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionSucursal), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("Surcusal:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("CBU:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionSucursal), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionCbu), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("CBU:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("CUIT:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionCbu), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionCuit), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("CUIT:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //// LINEA
-                    //ControlPage(ref table, ref cell, libranzaFecha);
-                    //cell = new PdfPCell(new Phrase("Titular de la cuenta:", boldFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 4;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionCuit), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionTitular), normalFont));
-                    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                    //cell.Colspan = 10;
-                    //cell.Border = 0;
-                    //table.AddCell(cell);
+                //    //// LINEA
+                //    //ControlPage(ref table, ref cell, libranzaFecha);
+                //    //cell = new PdfPCell(new Phrase("Titular de la cuenta:", boldFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 4;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                    foreach (VMBeneficiario item in libranza.BeneficiarioCesiones)
-                    {
+                //    //cell = new PdfPCell(new Phrase(IsEmpty(libranza.CesionTitular), normalFont));
+                //    //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    //cell.Colspan = 10;
+                //    //cell.Border = 0;
+                //    //table.AddCell(cell);
 
-                        var EsNacionalCesion = item.NacionalExtranjero == "true" ? true : false;
+                //    foreach (VMBeneficiario item in libranza.BeneficiarioCesiones)
+                //    {
 
-                        VMBeneficiarioBancos bancoCesion = null;
-                        foreach (VMBeneficiarioBancos i in item.Bancos)
-                            bancoCesion = i;
+                //        var EsNacionalCesion = item.NacionalExtranjero == "true" ? true : false;
+
+                //        VMBeneficiarioBancos bancoCesion = null;
+                //        foreach (VMBeneficiarioBancos i in item.Bancos)
+                //            bancoCesion = i;
 
                        
 
-                        libranzaLetra = libranzaTipo.Id == 1 ? "'A'" : "'B'";
-                        libranzaNro = Convert.ToString(libranza.NroLibranza);
+                //        libranzaLetra = libranzaTipo.Id == 1 ? "'A'" : "'B'";
+                //        libranzaNro = Convert.ToString(libranza.NroLibranza);
 
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("Tipo:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("Tipo:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.TipoCuenta), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.TipoCuenta), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("N°Cuenta:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("N°Cuenta:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.NroCuenta), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.NroCuenta), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("Banco:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("Banco:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.NombreBanco), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.NombreBanco), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("Surcusal:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("Surcusal:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.Sucursal), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.Sucursal), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("CBU:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("CBU:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.Cbu), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.Cbu), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("CUIT:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("CUIT:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(item.Cuit), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(item.Cuit), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        // LINEA
-                        ControlPage(ref table, ref cell, libranzaFecha);
-                        cell = new PdfPCell(new Phrase("Titular de la cuenta:", boldFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 4;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        // LINEA
+                //        ControlPage(ref table, ref cell, libranzaFecha);
+                //        cell = new PdfPCell(new Phrase("Titular de la cuenta:", boldFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 4;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                        cell = new PdfPCell(new Phrase(IsEmpty(item.RazonSocial), normalFont));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.Colspan = 10;
-                        cell.Border = 0;
-                        table.AddCell(cell);
+                //        cell = new PdfPCell(new Phrase(IsEmpty(item.RazonSocial), normalFont));
+                //        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                //        cell.Colspan = 10;
+                //        cell.Border = 0;
+                //        table.AddCell(cell);
 
-                    }
-                }
-                else
-                {
+                //    }
+                //}
+                //else
+                //{
                     // LINEA
                     ControlPage(ref table, ref cell, libranzaFecha);
                     cell = new PdfPCell(new Phrase("Tipo:", boldFont));
@@ -564,7 +565,7 @@ namespace BL.Libranza
                         cell.Border = 0;
                         table.AddCell(cell);
                     }
-                }
+               // }
 
                 // LINEA
                 ControlPage(ref table, ref cell, libranzaFecha);
@@ -746,7 +747,7 @@ namespace BL.Libranza
                 cell.Border = 0;
                 table.AddCell(cell);
 
-                // LINEA
+
                 ControlPage(ref table, ref cell, libranzaFecha);
                 cell = new PdfPCell(new Phrase("Registra:", boldFont));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -760,48 +761,224 @@ namespace BL.Libranza
                 cell.Border = 0;
                 table.AddCell(cell);
 
-                // LINEA
-                ControlPage(ref table, ref cell, libranzaFecha);
-                cell = new PdfPCell(new Phrase("N°Escritura:", boldFont));
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 4;
-                cell.Border = 0;
-                table.AddCell(cell);
+                if (libranza.RegistraCesion)
+                {
+                    var indice = 0;
+                    foreach (VMBeneficiario item in libranza.BeneficiarioCesiones)
+                    {
 
-                cell = new PdfPCell(new Phrase(IsEmpty(libranza.NroEscritura), normalFont));
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 10;
-                cell.Border = 0;
-                table.AddCell(cell);
+                        var EsNacionalCesion = item.NacionalExtranjero == "true" ? true : false;
 
-                // LINEA
-                ControlPage(ref table, ref cell, libranzaFecha);
-                cell = new PdfPCell(new Phrase("Beneficiario:", boldFont));
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 4;
-                cell.Border = 0;
-                table.AddCell(cell);
+                        VMBeneficiarioBancos bancoCesion = null;
+                        foreach (VMBeneficiarioBancos i in item.Bancos)
+                            bancoCesion = i;
 
-                cell = new PdfPCell(new Phrase(IsEmpty(libranza.BeneficiarioCesion), normalFont));
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 10;
-                cell.Border = 0;
-                table.AddCell(cell);
 
-                // LINEA
-                ControlPage(ref table, ref cell, libranzaFecha);
-                cell = new PdfPCell(new Phrase("CUIT:", boldFont));
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 4;
-                cell.Border = 0;
-                table.AddCell(cell);
 
-                cell = new PdfPCell(new Phrase(IsEmpty(libranza.IdentificacionTributaria), normalFont));
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 10;
-                cell.Border = 0;
-                table.AddCell(cell);
+                        libranzaLetra = libranzaTipo.Id == 1 ? "'A'" : "'B'";
+                        libranzaNro = Convert.ToString(libranza.NroLibranza);
 
+
+                        
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("N°Escritura:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(libranza.NroEscrituraCesiones[0]), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Beneficiario:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(item.RazonSocial), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("CUIT:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(item.Cuit), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Datos de la cuenta depositaria:", underlineBoldFontNormal));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 14;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Tipo:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.TipoCuenta), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("N°Cuenta:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.NroCuenta), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Banco:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.NombreBanco), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Surcusal:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.Sucursal), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("CBU:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(bancoCesion.Cbu), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("CUIT:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(item.Cuit), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Titular de la cuenta:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(item.RazonSocial), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        indice++;
+                    }
+
+
+
+
+               }else{
+   
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("N°Escritura:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(libranza.NroEscritura), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("Beneficiario:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(libranza.BeneficiarioCesion), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        // LINEA
+                        ControlPage(ref table, ref cell, libranzaFecha);
+                        cell = new PdfPCell(new Phrase("CUIT:", boldFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 4;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+
+                        cell = new PdfPCell(new Phrase(IsEmpty(libranza.IdentificacionTributaria), normalFont));
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.Colspan = 10;
+                        cell.Border = 0;
+                        table.AddCell(cell);
+                    }
                 // LINEA
                 ControlPage(ref table, ref cell, libranzaFecha);
                 cell = new PdfPCell(new Phrase("Datos generales del trámite:", underlineBoldFontNormal));

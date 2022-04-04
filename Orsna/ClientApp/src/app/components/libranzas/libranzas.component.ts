@@ -723,10 +723,14 @@ export class LibranzasComponent implements OnInit {
   }
 
   GetBancosCesion() {
-    this.beneficiariosCesion.forEach((item, index) => {
-      this.bancosBeneficiarioCesion.push(item.bancos);
-      this.ArraySelect[item.id] = "";
-    });
+    try {
+      this.beneficiariosCesion.forEach((item, index) => {
+        this.bancosBeneficiarioCesion.push(item.bancos);
+        this.ArraySelect[item.id] = "";
+      });
+    } catch (e) {
+
+    }
   }
 
 
