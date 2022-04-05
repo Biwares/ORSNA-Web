@@ -32,6 +32,8 @@ namespace BL.Libranza
         public static byte[] Create(VMLibranza libranza)
         {
             DateTime libranzaFecha = libranza.Fecha;
+            string[] strPagos;
+            decimal totalLibranzaCesion = 0;
 
             VMBeneficiario beneficiario = null;
             foreach (VMBeneficiario i in libranza.Beneficiario)
@@ -173,6 +175,7 @@ namespace BL.Libranza
                 cell.Colspan = 4;
                 cell.Border = 0;
                 table.AddCell(cell);
+
 
                 cell = new PdfPCell(new Phrase(Utils.numberToText(totalLibranza, libranza.MonedaNombreCorto), boldFont));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -761,6 +764,8 @@ namespace BL.Libranza
                 cell.Border = 0;
                 table.AddCell(cell);
 
+                 strPagos = new string[libranza.BeneficiarioCesiones.Count];
+
                 if (libranza.RegistraCesion)
                 {
                     var indice = 0;
@@ -929,13 +934,16 @@ namespace BL.Libranza
                         cell.Border = 0;
                         table.AddCell(cell);
 
+                        totalLibranzaCesion = totalLibranzaCesion + libranza.MontosCesiones[indice].Value;
+                        strPagos[indice] = IsEmpty(item.RazonSocial) + ' ' + libranza.MonedaNombreCorto + "  " + string.Format("{0:N2}", (libranza.MontosCesiones[indice].Value));
                         indice++;
                     }
 
 
+                    
 
-
-               }else{
+                }
+                else{
    
                         // LINEA
                         ControlPage(ref table, ref cell, libranzaFecha);
@@ -979,6 +987,10 @@ namespace BL.Libranza
                         cell.Border = 0;
                         table.AddCell(cell);
                     }
+
+
+
+
                 // LINEA
                 ControlPage(ref table, ref cell, libranzaFecha);
                 cell = new PdfPCell(new Phrase("Datos generales del trámite:", underlineBoldFontNormal));
@@ -1119,7 +1131,7 @@ namespace BL.Libranza
                     cell = new PdfPCell(new Phrase(libranza.MonedaNombreCorto + " " + string.Format("{0:N2}", (item.Monto == null ? 0 : item.Monto)), smallFont));
                     cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     //cell.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    if(!proyecto.PagosImpuestosIncluidos == true)
+                    if(proyecto.PagosImpuestosIncluidos==false)
                     {
                         cell.BackgroundColor = BaseColor.LIGHT_GRAY;
                     }
@@ -1232,8 +1244,38 @@ namespace BL.Libranza
                 cell.Border = 0;
                 table.AddCell(cell);
 
+                if (strPagos.Length > 0)
+                {
+
+                    ControlPage(ref table, ref cell, libranzaFecha);
+                    cell = new PdfPCell(new Phrase(" ", boldFont));
+                    cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                    cell.Colspan = 4;
+                    cell.Border = 0;
+                    table.AddCell(cell);
+
+                    cell = new PdfPCell(new Phrase(" ", boldFont));
+                    cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                    cell.Colspan = 10;
+                    cell.Border = 0;
+                    table.AddCell(cell);
+                }
+
+                for (var i = 0; i < strPagos.Length; i++)
+                {
+
+                    // LINEA
+                    cell = new PdfPCell(new Phrase("Monto a transferir a " + strPagos[i], largeFont));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.Colspan = 14;
+                    table.AddCell(cell);
+
+
+                }
+
+
                 // LINEA
-                cell = new PdfPCell(new Phrase("Monto a transferir a " + IsEmpty((libranza.RegistraCesion) ? libranza.BeneficiarioCesion : beneficiario.RazonSocial.ToUpper()) + " " + libranza.MonedaNombreCorto + " " + string.Format("{0:N2}", totalLibranza), largeFont));
+                cell = new PdfPCell(new Phrase("Monto a transferir a " + (beneficiario.RazonSocial) + ' ' + libranza.MonedaNombreCorto + "  " + string.Format("{0:N2}", (totalLibranza - totalLibranzaCesion)), largeFont));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 14;
                 table.AddCell(cell);
