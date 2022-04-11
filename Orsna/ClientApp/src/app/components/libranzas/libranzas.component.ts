@@ -1017,7 +1017,7 @@ export class LibranzasComponent implements OnInit {
           deducciones += Number(this.parseCurrencyNumber(this.newLibranza.value.Mora)) * tasaDeCambio;
 
         this.ListFacturas.forEach((item, index) => {
-          if (!item.tipo.toUpperCase().includes("CRÉDITO") && !item.tipo.toUpperCase().includes("CREDIT NOTE")) {
+          if (!item.tipo.toUpperCase().includes("NOTA DE CRÉDITO") && !item.tipo.toUpperCase().includes("CREDIT NOTE")) {
             sumFactura += Number(this.parseCurrencyNumber(item.monto.toString())) * tasaDeCambio;
             if (this.TipoLibranzaSeleccionadoNombre == 'A') {
               iva += Number(this.parseCurrencyNumber(item.iva.toString()));
