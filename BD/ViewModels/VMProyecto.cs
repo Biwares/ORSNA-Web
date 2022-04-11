@@ -120,20 +120,20 @@ namespace BD.ViewModels
             int[] idsLibTipoBDelProyecto = libranzasTipoB.Select(x => x.Id).ToArray();
             var libranzasTipoACreditoFacturas = context.LibranzaFacturas
                 .Where(x => idsLibTipoADelProyecto.Contains(x.IdLibranza.Value) && x.Estado == true 
-                && x.Tipo.ToUpper().Contains("CRÉDITO"));
+                && x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO"));
             var libranzasTipoANOCreditoFacturas = context.LibranzaFacturas
                 .Where(x => idsLibTipoADelProyecto.Contains(x.IdLibranza.Value) && x.Estado == true 
-                && !x.Tipo.ToUpper().Contains("CRÉDITO")
+                && !x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO")
                 && !x.Tipo.ToUpper().Contains("INVOICE")
                 && !x.Tipo.ToUpper().Contains("DEBIT NOTE")
                 && !x.Tipo.ToUpper().Contains("CREDIT NOTE"));
 
             var libranzasTipoBCreditoFacturas = context.LibranzaFacturas
                 .Where(x => idsLibTipoBDelProyecto.Contains(x.IdLibranza.Value) && x.Estado == true 
-                && x.Tipo.ToUpper().Contains("CRÉDITO"));
+                && x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO"));
             var libranzasTipoBNOCreditoFacturas = context.LibranzaFacturas
                 .Where(x => idsLibTipoBDelProyecto.Contains(x.IdLibranza.Value) && x.Estado == true 
-                && !x.Tipo.ToUpper().Contains("CRÉDITO")
+                && !x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO")
                 && !x.Tipo.ToUpper().Contains("INVOICE")
                 && !x.Tipo.ToUpper().Contains("DEBIT NOTE")
                 && !x.Tipo.ToUpper().Contains("CREDIT NOTE"));

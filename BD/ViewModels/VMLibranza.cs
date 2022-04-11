@@ -105,8 +105,8 @@ namespace BD.ViewModels
             decimal sumFactura = 0;
             response.Retenciones = ((l.MontoFondoReparo ?? 0) + (l.Multa ?? 0) + (l.Mora ?? 0));
             var libranzas = context.LibranzaFacturas.Include(x=>x.IdLibranzaNavigation).Where(x => x.IdLibranza == l.Id && x.Estado == true);
-            var libranzasCredito = libranzas.Where(x => x.Tipo.ToUpper().Contains("CRÉDITO") || x.Tipo.ToUpper().Contains("CREDIT NOTE"));
-            var libranzasNoCredito = libranzas.Where(x => !x.Tipo.ToUpper().Contains("CRÉDITO") && !x.Tipo.ToUpper().Contains("CREDIT NOTE"));
+            var libranzasCredito = libranzas.Where(x => x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO") || x.Tipo.ToUpper().Contains("CREDIT NOTE"));
+            var libranzasNoCredito = libranzas.Where(x => !x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO") && !x.Tipo.ToUpper().Contains("CREDIT NOTE"));
             foreach (var fac in libranzasNoCredito)
             {
                 sumFactura += fac.Monto ?? 0;

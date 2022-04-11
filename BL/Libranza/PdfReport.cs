@@ -76,7 +76,7 @@ namespace BL.Libranza
                 else
                     subTotal = (decimal)(item.Monto == null ? 0 : item.Monto);
 
-                if (item.Tipo.ToUpper().Contains("CRÉDITO") || item.Tipo.ToUpper().Contains("CREDIT NOTE"))
+                if (item.Tipo.ToUpper().Contains("NOTA DE CRÉDITO") || item.Tipo.ToUpper().Contains("CREDIT NOTE"))
                     subTotal = subTotal * -1;
 
                 totalLibranza += subTotal;
@@ -989,6 +989,13 @@ namespace BL.Libranza
                     }
 
 
+                // LINEA
+                ControlPage(ref table, ref cell, libranzaFecha);
+                cell = new PdfPCell(new Phrase(" ", underlineBoldFontNormal));
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.Colspan = 14;
+                cell.Border = 0;
+                table.AddCell(cell);
 
 
                 // LINEA
@@ -1150,7 +1157,7 @@ namespace BL.Libranza
                     table.AddCell(cell);
 
                     subTotal = (decimal)((item.Monto == null ? 0 : item.Monto) + (item.Iva == null ? 0 : item.Iva) + (item.Ibb == null ? 0 : item.Ibb));
-                    if (item.Tipo.ToUpper().Contains("CRÉDITO"))
+                    if (item.Tipo.ToUpper().Contains("NOTA DE CRÉDITO"))
                         subTotal = subTotal * -1;
 
                     subTotal = Math.Abs(subTotal);

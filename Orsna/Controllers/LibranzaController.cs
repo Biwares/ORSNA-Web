@@ -285,8 +285,8 @@ namespace Orsna.Controllers
 
                     if (l.LibranzasEstado.Id != BD.Utilities.LibranzaEstadosEnum.Anulada)
                     {
-                        var monto = l.Factura.Where(x => x.Monto.HasValue && !x.Tipo.ToUpper().Contains("CRÉDITO") && !x.Tipo.ToUpper().Contains("CREDIT NOTE")).Sum(x => x.Monto.Value);
-                        monto -= l.Factura.Where(x => x.Monto.HasValue && (x.Tipo.ToUpper().Contains("CRÉDITO") || x.Tipo.ToUpper().Contains("CREDIT NOTE"))).Sum(x => x.Monto.Value);
+                        var monto = l.Factura.Where(x => x.Monto.HasValue && !x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO") && !x.Tipo.ToUpper().Contains("CREDIT NOTE")).Sum(x => x.Monto.Value);
+                        monto -= l.Factura.Where(x => x.Monto.HasValue && (x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO") || x.Tipo.ToUpper().Contains("CREDIT NOTE"))).Sum(x => x.Monto.Value);
                         monto = (monto * l.TasaDeCambio);
 
                         row.CreateCell(8).SetCellValue(double.Parse(monto.ToString()));
@@ -294,11 +294,11 @@ namespace Orsna.Controllers
                         decimal iva = 0;
                         decimal Ibb = 0;
 
-                        iva = l.Factura.Where(x => x.Iva.HasValue && !x.Tipo.ToUpper().Contains("CRÉDITO")).Sum(x => x.Iva.Value);
-                        iva -= l.Factura.Where(x => x.Iva.HasValue && x.Tipo.ToUpper().Contains("CRÉDITO")).Sum(x => x.Iva.Value);
+                        iva = l.Factura.Where(x => x.Iva.HasValue && !x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO")).Sum(x => x.Iva.Value);
+                        iva -= l.Factura.Where(x => x.Iva.HasValue && x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO")).Sum(x => x.Iva.Value);
 
-                        Ibb = l.Factura.Where(x => x.Ibb.HasValue && !x.Tipo.ToUpper().Contains("CRÉDITO")).Sum(x => x.Ibb.Value);
-                        Ibb -= l.Factura.Where(x => x.Ibb.HasValue && x.Tipo.ToUpper().Contains("CRÉDITO")).Sum(x => x.Ibb.Value);
+                        Ibb = l.Factura.Where(x => x.Ibb.HasValue && !x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO")).Sum(x => x.Ibb.Value);
+                        Ibb -= l.Factura.Where(x => x.Ibb.HasValue && x.Tipo.ToUpper().Contains("NOTA DE CRÉDITO")).Sum(x => x.Ibb.Value);
 
                         row.CreateCell(9).SetCellValue(double.Parse(iva.ToString()));
                         row.CreateCell(10).SetCellValue(double.Parse(Ibb.ToString()));
