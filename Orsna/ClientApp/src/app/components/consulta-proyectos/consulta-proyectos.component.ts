@@ -8,6 +8,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { forEach } from '@angular/router/src/utils/collection';
 import swal from 'sweetalert2';
 import { Constants } from '../../services/constants';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-consulta-proyectos',
@@ -355,5 +356,91 @@ export class
     }
   }
   /////////////////////////////////
+
+  GetXLSFilter(order: string, columnOrder: string, event: number) {
+
+    this.loading = true;
+
+    if (columnOrder != undefined && columnOrder != null && columnOrder != '' && columnOrder != "") {
+      this.ColumnOrder = columnOrder;
+    }
+    if (order != undefined && order != null && order != '' && order != "") {
+      this.Order = order;
+    }
+
+    console.log("Inicio Busqueda")
+    this.request.get(Constants.API_PROYECTO + Constants.API_GET_ALL_RESUM + "?page=-1"  + "&FilterAeropuerto=" + this.IdsAeroSelect + "&FilterIdProyecto=" +
+      this.FilterIdProyecto + "&FilterArea=" + this.IdsAreaSelect + "&FilterEstado=" + this.FilterEstado + "&FilterFecha=" +
+      this.FilterFecha + "&FilterObra=" + this.FilterObra + "&Order=" + this.Order + "&ColumnOrder=" + this.ColumnOrder + "&FilterCuentas=" + this.IdsCuentasSelect + "&FilterDestino=" + this.FilterDestino).subscribe(resp => {
+
+        console.log("Inicio descarga")
+       
+        this.downloadFile(resp.data);
+
+      });
+
+     }
+
+
+  downloadFile(data: any) {
+    //const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    //const header = Object.keys(data[0]);
+    var DetalleProyectos: any;
+
+    DetalleProyectos = "<!DOCTYPE HTML PUBLIC><table><tr><td>Destino</td><td>ID Proyecto</td><td>Cod. Obra</td><td>Area</td><td>Cuenta Fiduciaria</td><td>Estado</td><td>Fecha Creacion</td><td>Monto Total</td><td>Monto Disp.</td><td></td></tr>";
+
+    for (var i = 0; i < data.length; i++) {
+      DetalleProyectos = DetalleProyectos + "<tr>"
+      if (data[i].destinosId == 1) {
+        DetalleProyectos = DetalleProyectos + "<td>SNA</td>";
+      } else {
+        if (data[i].destinosId == 2) {
+          DetalleProyectos = DetalleProyectos + "<td>"
+          for (var ii = 0; ii < data[i].aeropuertos.length; ii++) {
+            DetalleProyectos = DetalleProyectos + " " + data[i].aeropuertos[ii].codIata;
+          }
+          DetalleProyectos = DetalleProyectos + "</td>"
+        } else {
+          DetalleProyectos = DetalleProyectos + "<td>"
+          for (var ii = 0; ii < data[i].aeropuertos.length; ii++) {
+            DetalleProyectos = DetalleProyectos + " " + data[i].aeropuertos[ii].codIata;
+          }
+          DetalleProyectos = DetalleProyectos + "</td>"
+        }
+      }
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].idProyecto + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].codObra + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].area.codigo + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].cuenta.descripcion + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].estadoProyecto + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].fechaCreacion + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td>" + data[i].montoTotal + "</td>";
+      if (data[i].montoDisponible == null) {
+        DetalleProyectos = DetalleProyectos + "<td>0</td>";
+      } else {
+        DetalleProyectos = DetalleProyectos + "<td>" + data[i].montoDisponible + "</td>";
+
+      }
+      DetalleProyectos = DetalleProyectos + "<td></td></tr>"
+      console.log(data[i].id);
+      }
+
+    DetalleProyectos = DetalleProyectos + "</table></html>";
+
+    const blb = new Blob([DetalleProyectos], { type: "text/plain" })
+
+    //let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    //csv.unshift(header.join(';'));
+    //let csvArray = csv.join('\r\n');
+
+
+    var year = new Date().getFullYear();
+    var filename = "Libro Registro de Proyectos-" + year + ".xlsx";
+   
+    var blob = new Blob([DetalleProyectos], { type: 'text/csv' })
+    saveAs(blb, filename);
+    this.loading = false;
+
+  }
 
 }

@@ -82,6 +82,40 @@ namespace BD.ViewModels
             response.Provincias = VMProvincia.MapList( context.Provincias.Where(x => IdProyectoProvincias.Contains(x.Id)).ToList(), con);
             return response;
         }
+        public static VMProyecto MapResumido(BD.Models.Proyectos p, string con)
+        {
+            OrsnaDatabaseContext context = new OrsnaDatabaseContext(con);
+            VMProyecto response = new VMProyecto();
+
+            response.Id = p.Id;
+            response.Nombre = p.Nombre;
+            response.Descripcion = p.Descripcion;
+            response.IdProyecto = p.IdProyecto;
+            response.IdEstadoProyecto = p.IdProyectosEstado;
+            response.EstadoProyecto = context.ProyectosEstado.Find(p.IdProyectosEstado).Nombre;
+            var cu = context.Cuentas.FirstOrDefault(x => x.Id == p.IdCuenta);
+            response.Cuenta = VMCuenta.Map(cu, con);
+            response.Area = VMArea.Map(context.Areas.FirstOrDefault(x => x.Id == p.IdArea), con);
+            response.Destinos = VMDestinos.Map(context.Destinos.FirstOrDefault(x => x.Id == p.DestinosId), con);
+            response.DestinosId = p.DestinosId;
+            response.NroContratacion = p.NroContratacion;
+            response.NroObra = p.NroObra;
+            response.NroPago = p.NroPago;
+            response.CodObra = p.CodObra;
+            response.Objeto = p.Objeto;
+            response.MontoTotal = p.MontoTotal;
+            response.MontoPagadoAniosAnteriores = p.MontoPagadoAniosAnteriores;
+            response.FechaCreacion = p.FechaCreacion;
+            response.TipoEstado = p.TipoEstado;
+            response.Estado = p.Estado;
+            response.Codigo = p.Codigo;
+            response.PagosImpuestosIncluidos = p.PagosImpuestosIncluidos;
+            var IdProyectoAeropuertos = context.ProyectoAeropuertos.Where(x => x.IdProyecto == p.Id && x.Estado == true).Select(x => x.IdAeropuerto);
+            response.Aeropuertos = VMAeropuerto.MapList(context.Aeropuertos.Where(x => IdProyectoAeropuertos.Contains(x.Id)).ToList(), con);
+            response.MontoDisponible = GetMontoDisponibleProyecto(p.Id, con, null);
+            return response;
+        }
+
 
         public static decimal GetMontoDisponibleProyecto(int idProyec, string con,int? idLibranza)
         {
@@ -202,6 +236,24 @@ namespace BD.ViewModels
                 listResponse.Add(VMProyecto.Map(proj, con));
             }
 
+            return listResponse;
+        }
+
+        public static ICollection<VMProyecto> MapListResumido(ICollection<BD.Models.Proyectos> proyectos, string con)
+        {
+            ICollection<VMProyecto> listResponse = new System.Collections.ObjectModel.Collection<VMProyecto>();
+            try
+            { 
+            
+            foreach (var proj in proyectos)
+            {
+                listResponse.Add(VMProyecto.MapResumido(proj, con));
+            }
+            }
+            catch
+            {
+
+            }
             return listResponse;
         }
         public static ICollection<Proyectos> MapList(ICollection<VMProyecto> proyectos, string con)

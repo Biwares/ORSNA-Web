@@ -56,6 +56,7 @@ var Constants = /** @class */ (function () {
     Constants.API_GET_COUNT_FILTER_ELEMENTS = "/GetCountFilterElements";
     Constants.API_GET_COUNT_PAGES = "/GetCountPages";
     Constants.API_GET_ALL = "/GetAll";
+    Constants.API_GET_ALL_RESUM = "/GetAllResumido";
     Constants.API_GET_FILE = "/GetFile";
     Constants.API_GET_FILTER = "/GetFilter";
     Constants.API_GET_AREAS = "/GetAreas";

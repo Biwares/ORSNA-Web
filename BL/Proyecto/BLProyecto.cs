@@ -190,6 +190,32 @@ namespace BL.Proyecto
                 return null;
             }
         }
+
+
+
+        public ICollection<VMProyecto> GetAllResumido(int page, string FilterAeropuerto, string FilterIdProyecto, string FilterArea,
+            int? FilterEstado, int FilterFechaCreacion, string FilterObra, List<int> areasDelUsuario, string Order, string ColumnOrder, string FilterCuentas, int FilterDestino)
+        {
+            try
+            {
+                ICollection<Proyectos> proyectos = GetProyectosFilter(FilterAeropuerto, FilterIdProyecto, FilterArea, FilterEstado,
+                    FilterFechaCreacion, FilterObra, areasDelUsuario, Order, ColumnOrder, FilterCuentas, FilterDestino);
+
+                if (page > 1)
+                    proyectos = proyectos.Skip(cantidadElementosPorPagina * (page - 1)).ToList();
+
+                if (page > 0)
+                    proyectos = proyectos.Take(cantidadElementosPorPagina).ToList();
+
+                return VMProyecto.MapListResumido(proyectos, con);
+            }
+            catch (Exception ex)
+            {
+                Utils.manageExceptionContext(ex);
+                return null;
+            }
+        }
+
         public List<int> GetAnios()
         {
             try

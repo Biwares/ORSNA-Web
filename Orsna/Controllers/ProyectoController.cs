@@ -71,6 +71,19 @@ namespace Orsna.Controllers
             
             return Json(new ResultDto<VMProyecto>("success", data));
         }
+        [HttpGet("[action]")]
+        public JsonResult GetAllResumido(int page, string FilterAeropuerto, string FilterIdProyecto, string FilterArea,
+            int? FilterEstado, int FilterFecha, string FilterObra, string Order, string ColumnOrder, string FilterCuentas, int FilterDestino)
+        {
+            BLSeguridad BLSeguridad = new BLSeguridad(configuration.GetValue<string>("MyConfig:OrsnaDatabaseEntities"), userId);
+            List<int> getAreas = BLSeguridad.GetAreasDelUsuario(null, BasicAuthenticationHandler.getUserNameAndPasswordFromHeaders(Request.Headers["Authorization"]).Item1);
+
+            BLProyecto proyecto = new BLProyecto(configuration.GetValue<string>("MyConfig:OrsnaDatabaseEntities"), userId);
+            ICollection<VMProyecto> data = proyecto.GetAllResumido(page, FilterAeropuerto, FilterIdProyecto, FilterArea,
+            FilterEstado, FilterFecha, FilterObra, getAreas, Order, ColumnOrder, FilterCuentas, FilterDestino);
+
+            return Json(new ResultDto<VMProyecto>("success", data));
+        }
         [HttpPost("[action]")]
         public JsonResult Save()
         {

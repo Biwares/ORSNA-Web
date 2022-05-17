@@ -72,6 +72,8 @@ export class Constants {
   static readonly API_GET_COUNT_FILTER_ELEMENTS = "/GetCountFilterElements";
   static readonly API_GET_COUNT_PAGES = "/GetCountPages";
   static readonly API_GET_ALL = "/GetAll";
+  static readonly API_GET_ALL_RESUM = "/GetAllResumido";
+  
   static readonly API_GET_FILE = "/GetFile";
   static readonly API_GET_FILTER = "/GetFilter";
   static readonly API_GET_AREAS = "/GetAreas";
