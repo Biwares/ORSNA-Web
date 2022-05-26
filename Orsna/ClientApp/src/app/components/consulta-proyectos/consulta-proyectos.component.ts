@@ -435,7 +435,7 @@ export class
 
 
     var year = new Date().getFullYear();
-    var filename = "Libro Registro de Proyectos-" + year + ".xlsx";
+    var filename = "Libro Registro de Proyectos-" + year + ".xls";
    
     var blob = new Blob([DetalleProyectos], { type: 'text/csv' })
     saveAs(blb, filename);
