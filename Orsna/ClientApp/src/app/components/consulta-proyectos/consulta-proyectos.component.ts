@@ -58,7 +58,7 @@ export class
   Estados: any;
   proyectos: any;
   ProyectosSelect: any;
-  ProyectoToDelete: string= "";
+  ProyectoToDelete: string = "";
   misAeros: Array<string> = [];
   NombreModalAnexos: string = '';
   DetalleProyecto: any = null;
@@ -97,13 +97,13 @@ export class
     this.message = "";
     this.IdsAeroSelect = "";
     this.AeropuertosSelect = [];
-    this.CuentasSelect= [];
+    this.CuentasSelect = [];
     this.IdsCuentasSelect = "";
     this.AreasSelect = [];
     this.IdsAreaSelect = "";
     this.ProyectosSelect = [];
     this.ProyectosId = "";
-    this.FilterIdProyecto= "";
+    this.FilterIdProyecto = "";
 
   }
 
@@ -115,7 +115,7 @@ export class
       this.puedeEliminar = resp.eliminar;
     });
 
-    this.request.get(Constants.API_SEGURIDAD + Constants.API_GET_PERMISOS +"?modulo=" + 'Libranzas de Pago').subscribe(resp => {
+    this.request.get(Constants.API_SEGURIDAD + Constants.API_GET_PERMISOS + "?modulo=" + 'Libranzas de Pago').subscribe(resp => {
       this.puedeEditarLibranzas = resp.editar;
     });
 
@@ -205,11 +205,11 @@ export class
     if (order != undefined && order != null && order != '' && order != "") {
       this.Order = order;
     }
-    this.request.get(Constants.API_PROYECTO + Constants.API_GET_COUNT_PAGES +"?page=" + this.page + "&FilterAeropuerto=" + this.IdsAeroSelect + "&FilterIdProyecto=" +
+    this.request.get(Constants.API_PROYECTO + Constants.API_GET_COUNT_PAGES + "?page=" + this.page + "&FilterAeropuerto=" + this.IdsAeroSelect + "&FilterIdProyecto=" +
       this.FilterIdProyecto + "&FilterArea=" + this.IdsAreaSelect + "&FilterEstado=" + this.FilterEstado + "&FilterFecha=" +
       this.FilterFecha + "&FilterObra=" + this.FilterObra + "&Order=" + this.Order + "&ColumnOrder=" + this.ColumnOrder + "&FilterCuentas=" + this.IdsCuentasSelect + "&FilterDestino=" + this.FilterDestino).subscribe(resp => {
-      this.CountPages = resp * 10;
-    });
+        this.CountPages = resp * 10;
+      });
   }
   GetAll(order: string, columnOrder: string, event: number) {
     this.loading = true;
@@ -235,7 +235,7 @@ export class
         this.proyectos = resp.data;
         this.loading = false;
       });
-    
+
   }
 
   EditProyecto(id: number) {
@@ -284,7 +284,7 @@ export class
   getAdjuntosProyecto(id: number, nombreProyecto: string) {
     this.NombreModalAnexos = nombreProyecto;
     this.AnexosProyecto = [];
-    this.request.get(Constants.API_PROYECTO_ADJUNTOS + Constants.API_GET_ADJUNTOS_PROYECTOS +  "?id=" + id).subscribe(resp => {
+    this.request.get(Constants.API_PROYECTO_ADJUNTOS + Constants.API_GET_ADJUNTOS_PROYECTOS + "?id=" + id).subscribe(resp => {
       this.AnexosProyecto = resp;
     });
   }
@@ -305,13 +305,13 @@ export class
   /////////////////////////////////FIN MODAL DETALLE PROYECTO//////////////////////////////////////////////////////////////////
   ///////////////////////////////////// select dropdow //////////////////////////////////
   onItemSelectAero(item: any) {
-    this.IdsAeroSelect += ","+item.id;
+    this.IdsAeroSelect += "," + item.id;
   }
   onItemDeSelectAero(item: any) {
     let array = this.IdsAeroSelect.split(',');
     this.IdsAeroSelect = "";
     for (var i = 0; i < array.length; i++) {
-      if (!(array[i] == item.id) && array[i]!="") {
+      if (!(array[i] == item.id) && array[i] != "") {
         this.IdsAeroSelect = this.IdsAeroSelect + "," + array[i];
       }
     }
@@ -369,18 +369,17 @@ export class
     }
 
     console.log("Inicio Busqueda")
-    this.request.get(Constants.API_PROYECTO + Constants.API_GET_ALL_RESUM + "?page=-1"  + "&FilterAeropuerto=" + this.IdsAeroSelect + "&FilterIdProyecto=" +
+    this.request.get(Constants.API_PROYECTO + Constants.API_GET_ALL_RESUM + "?page=-1" + "&FilterAeropuerto=" + this.IdsAeroSelect + "&FilterIdProyecto=" +
       this.FilterIdProyecto + "&FilterArea=" + this.IdsAreaSelect + "&FilterEstado=" + this.FilterEstado + "&FilterFecha=" +
       this.FilterFecha + "&FilterObra=" + this.FilterObra + "&Order=" + this.Order + "&ColumnOrder=" + this.ColumnOrder + "&FilterCuentas=" + this.IdsCuentasSelect + "&FilterDestino=" + this.FilterDestino).subscribe(resp => {
 
         console.log("Inicio descarga")
-       
+
         this.downloadFile(resp.data);
 
       });
 
-     }
-
+  }
 
   downloadFile(data: any) {
     //const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
@@ -413,7 +412,7 @@ export class
       DetalleProyectos = DetalleProyectos + "<td>" + data[i].area.codigo + "</td>";
       DetalleProyectos = DetalleProyectos + "<td>" + data[i].cuenta.descripcion + "</td>";
       DetalleProyectos = DetalleProyectos + "<td>" + data[i].estadoProyecto + "</td>";
-      DetalleProyectos = DetalleProyectos + "<td>" + data[i].fechaCreacion + "</td>";
+      DetalleProyectos = DetalleProyectos + "<td> " + data[i].fechaCreacion.substring(0, 10).toString() + " </td>";
       DetalleProyectos = DetalleProyectos + "<td>" + data[i].montoTotal + "</td>";
       if (data[i].montoDisponible == null) {
         DetalleProyectos = DetalleProyectos + "<td>0</td>";
@@ -423,7 +422,7 @@ export class
       }
       DetalleProyectos = DetalleProyectos + "<td></td></tr>"
       console.log(data[i].id);
-      }
+    }
 
     DetalleProyectos = DetalleProyectos + "</table></html>";
 
@@ -436,7 +435,7 @@ export class
 
     var year = new Date().getFullYear();
     var filename = "Libro Registro de Proyectos-" + year + ".xls";
-   
+
     var blob = new Blob([DetalleProyectos], { type: 'text/csv' })
     saveAs(blb, filename);
     this.loading = false;
@@ -444,3 +443,7 @@ export class
   }
 
 }
+
+
+
+
