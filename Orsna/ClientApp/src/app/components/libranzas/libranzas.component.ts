@@ -359,8 +359,20 @@ export class LibranzasComponent implements OnInit {
             }
 
             if (lib.montosCesiones != null) {
-                this.misBeneficiariosCesionImporte = lib.montosCesiones;
+
+              for (let i = 0; i < lib.montosCesiones.length; i++) {
+                var str = lib.montosCesiones[i];
+                if (str.toString() == "") {
+                  lib.montosCesiones[i] = "0";
+                } else {
+                  lib.montosCesiones[i] = str.toString().replace(".", ",");
+                }
               }
+
+              this.misBeneficiariosCesionImporte = lib.montosCesiones;
+
+            
+            }
       
           }
 
@@ -492,12 +504,18 @@ export class LibranzasComponent implements OnInit {
     this.misBeneficiariosCesionEscritura=[];
     this.misBeneficiariosCesionImporte=[];
 
-    for (let i = 1; i < this.misBeneficiariosCesion.length+1; i++) {
+    for (let i = 1; i < this.misBeneficiariosCesion.length + 1; i++) {
+      if (eval(document.getElementById('ImporteCesion_' + i).id + '.value') == "") { } else {}
       console.log(eval(document.getElementById('ImporteCesion_' + i).id + '.value'));
       console.log(eval(document.getElementById('NroEscritura_' + i).id + '.value'));
 
-      this.misBeneficiariosCesionImporte.push(eval(document.getElementById('ImporteCesion_' + i).id + '.value'));
-      this.misBeneficiariosCesionEscritura.push(eval(document.getElementById('NroEscritura_' + i).id + '.value'));
+      if (eval(document.getElementById('ImporteCesion_' + i).id + '.value') == "")
+      {
+          this.misBeneficiariosCesionImporte.push("0");
+      } else { 
+        this.misBeneficiariosCesionImporte.push(eval(document.getElementById('ImporteCesion_' + i).id + '.value'));
+      }
+        this.misBeneficiariosCesionEscritura.push(eval(document.getElementById('NroEscritura_' + i).id + '.value'));
     }
   
  
